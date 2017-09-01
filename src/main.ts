@@ -2,17 +2,23 @@ import { TableDelimiters } from './consts/table-delimiters.const';
 
 import { TableStructure } from './entities/TableStructure.entity';
 
+import { Prompt } from './core/Prompt.core';
 import { TablePrinter } from './core/TablePrinter.core';
 
 export class SmartCLI {
     private TablePrinter: TablePrinter;
-
+    private Prompt: Prompt;
     constructor() {
         this.TablePrinter = new TablePrinter();
+        this.Prompt = new Prompt();
     }
 
     public printTable(table: TableStructure) {
         this.TablePrinter.printTable(table);
+    }
+
+    public prompt(question: string, callback: (answer: string) => void) {
+        this.Prompt.prompt(question, callback);
     }
 }
 
@@ -34,4 +40,18 @@ tbl.rows = [
     ['Row 6 value 1', 'Row 6 value 2', 'Row 6 value 3', 'Row 6 value 4', 'Row 6 value 5'],
 ];
 
-SC.printTable(tbl);
+const promptHandler = (answer: string) => {
+    switch (answer.toLowerCase()) {
+        case 'true':
+            SC.printTable(tbl);
+            return true;
+        case 'false':
+            console.log('Ugly you then!');
+            return true;
+        default:
+            SC.prompt('Not a valid answer. Use true or false: ', promptHandler);
+            return false;
+    }
+};
+
+SC.prompt('Want a table? Type true or false: ', promptHandler);

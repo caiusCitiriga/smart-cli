@@ -15,5 +15,29 @@
     "chalk": "^2.1.0",
     "rxjs": "^5.4.3",
     "typescript": "^2.4.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caiusCitiriga/smart-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "table",
+    "tabular",
+    "console",
+    "node-console",
+    "node-cli",
+    "prompt",
+    "chalk",
+    "color",
+    "colored",
+    "terminal",
+    "input",
+    "output"
+  ],
+  "bugs": {
+    "url": "https://github.com/caiusCitiriga/smart-cli/issues"
+  },
+  "homepage": "https://github.com/caiusCitiriga/smart-cli#readme"
 }
