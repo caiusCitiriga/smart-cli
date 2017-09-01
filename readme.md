@@ -10,10 +10,6 @@ Install the library
 npm i smart-cli
 ```
 
-Optionally you can install the @types too, if you will be using this with TypeScript 
-```
-npm i @types/smart-cli --save-dev
-```
 # Examples
 You can find a picture listing all the examples here at the end of the examples.
 
