@@ -1,12 +1,8 @@
-//  Misc deps
 import * as Chalk from 'chalk';
 
-//  Consts
 import { TableDelimiters } from '../consts/table-delimiters.const';
 
-//  Entities
 import { TableStructure } from '../entities/TableStructure.entity';
-
 
 export class TablePrinter {
     /**

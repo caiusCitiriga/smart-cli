@@ -1,10 +1,7 @@
-//  Consts
 import { TableDelimiters } from './consts/table-delimiters.const';
 
-//  Entities
 import { TableStructure } from './entities/TableStructure.entity';
 
-//  Core
 import { TablePrinter } from './core/TablePrinter.core';
 
 export class SmartCLI {
@@ -22,7 +19,7 @@ export class SmartCLI {
 
 /**
  * ***************************************************************
- * Program run
+ * Program run (will be removed from here)
  * ***************************************************************
  */
 const SC = new SmartCLI();
