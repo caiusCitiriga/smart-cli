@@ -4,13 +4,17 @@ import { TableStructure } from './entities/TableStructure.entity';
 
 import { Prompt } from './core/Prompt.core';
 import { TablePrinter } from './core/TablePrinter.core';
+import { GenericOutput } from './core/GenericOutput.core';
 
 export class SmartCLI {
     private TablePrinter: TablePrinter;
     private Prompt: Prompt;
+    private GenericOutput: GenericOutput;
+
     constructor() {
         this.TablePrinter = new TablePrinter();
         this.Prompt = new Prompt();
+        this.GenericOutput = new GenericOutput();
     }
 
     public printTable(table: TableStructure) {
@@ -20,6 +24,11 @@ export class SmartCLI {
     public prompt(question: string, callback: (answer: string) => boolean) {
         this.Prompt.prompt(question, callback);
     }
+
+    public printKeyValuePair(set: { key: string, value: string }[]) {
+        this.GenericOutput.printKeyValue(set);
+    }
+
 }
 
 
@@ -42,16 +51,19 @@ tbl.rows = [
 
 const promptHandler = (answer: string) => {
     switch (answer.toLowerCase()) {
-        case 'true':
+        case 'y':
             SC.printTable(tbl);
             return true;
-        case 'false':
+        case 'f':
             console.log('Ugly you then!');
             return true;
         default:
-            SC.prompt('Not a valid answer. Use true or false: ', promptHandler);
+            SC.prompt('Not a valid answer. Use y or n: ', promptHandler);
             return false;
     }
 };
 
-SC.prompt('Want a table? Type true or false: ', promptHandler);
+SC.printKeyValuePair([
+    { key: 'MyKeyOne', value: 'MyValueOne' },
+    { key: 'MyKeyOneTooLong', value: 'MyValueOne' },
+]);
