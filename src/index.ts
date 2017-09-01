@@ -6,7 +6,7 @@ import { Prompt } from './core/Prompt.core';
 import { TablePrinter } from './core/TablePrinter.core';
 import { GenericOutput } from './core/GenericOutput.core';
 
-export class SmartCLI {
+class SCLI {
     private TablePrinter: TablePrinter;
     private Prompt: Prompt;
 
@@ -27,4 +27,4 @@ export class SmartCLI {
     }
 }
 
-export const SCLI = new SmartCLI();
+export const SmartCLI = new SCLI();

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Prompt_core_1 = require("./core/Prompt.core");
 const TablePrinter_core_1 = require("./core/TablePrinter.core");
 const GenericOutput_core_1 = require("./core/GenericOutput.core");
-class SmartCLI {
+class SCLI {
     constructor() {
         this.TablePrinter = new TablePrinter_core_1.TablePrinter();
         this.Prompt = new Prompt_core_1.Prompt();
@@ -16,6 +16,5 @@ class SmartCLI {
         this.Prompt.prompt(question, callback);
     }
 }
-exports.SmartCLI = SmartCLI;
-exports.SCLI = new SmartCLI();
+exports.SmartCLI = new SCLI();
 //# sourceMappingURL=index.js.map
