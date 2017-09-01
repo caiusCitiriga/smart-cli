@@ -2,12 +2,11 @@
 import * as Chalk from 'chalk';
 
 //  Consts
+import { TableDelimiters } from '../consts/table-delimiters.const';
 
 //  Entities
 import { TableStructure } from '../entities/TableStructure.entity';
-import { TableDelimiters } from '../consts/table-delimiters.const';
 
-//  Core
 
 export class TablePrinter {
     /**
@@ -18,17 +17,39 @@ export class TablePrinter {
      */
     private longestCellWidth = 0;
 
+
+    /**
+     * This will be the final output of the table.
+     * 
+     * @private
+     * @memberof TablePrinter
+     */
     private table = '';
+
+    /**
+     * Prints the data passed in as tabular data.
+     * 
+     * @param {TableStructure} table 
+     * @memberof TablePrinter
+     */
     public printTable(table: TableStructure) {
         this.setLongestCellWidth(table);
-        this.printHeadingTopRow(table.heading);
-        this.printHeadingValues(table.heading);
-        this.printHeadingFooter(table.heading);
-        this.printRows(table.rows);
+        this.writeHeadingTopRow(table.heading);
+        this.writeHeadingValues(table.heading);
+        this.writeHeadingFooter(table.heading);
+        this.writeRows(table.rows);
+
         console.log(this.table);
     }
 
-    private printHeadingTopRow(heading: string[]) {
+    /**
+     * Writes the heading top lines on the table string
+     * 
+     * @private
+     * @param {string[]} heading 
+     * @memberof TablePrinter
+     */
+    private writeHeadingTopRow(heading: string[]) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
                 this.table += Chalk.gray(TableDelimiters.topLeft);
@@ -50,7 +71,14 @@ export class TablePrinter {
         this.table += '\n';
     }
 
-    private printHeadingValues(heading: string[]) {
+    /**
+     * Writes the heading values on the table string
+     * 
+     * @private
+     * @param {string[]} heading 
+     * @memberof TablePrinter
+     */
+    private writeHeadingValues(heading: string[]) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
                 this.table += Chalk.gray(TableDelimiters.left);
@@ -75,7 +103,14 @@ export class TablePrinter {
         this.table += '\n';
     }
 
-    private printHeadingFooter(heading: string[]) {
+    /**
+     * Writes the heading bottom lines on the table string
+     * 
+     * @private
+     * @param {string[]} heading 
+     * @memberof TablePrinter
+     */
+    private writeHeadingFooter(heading: string[]) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
                 this.table += Chalk.gray(TableDelimiters.leftMid);
@@ -97,7 +132,14 @@ export class TablePrinter {
         this.table += '\n';
     }
 
-    private printRows(rows: Array<string[]>) {
+    /**
+     * Writes the values contained into the given rows, one set at the time on the table string
+     * 
+     * @private
+     * @param {Array<string[]>} rows 
+     * @memberof TablePrinter
+     */
+    private writeRows(rows: Array<string[]>) {
         rows.forEach((valuesSet, setIndex) => {
             valuesSet.forEach((value, valueIndex) => {
                 if (valueIndex === 0) {
@@ -145,6 +187,13 @@ export class TablePrinter {
         });
     }
 
+    /**
+     * Sets the number of the longest heading or row value
+     * 
+     * @private
+     * @param {TableStructure} table 
+     * @memberof TablePrinter
+     */
     private setLongestCellWidth(table: TableStructure) {
         table.heading
             .forEach(h => this.longestCellWidth = h.length > this.longestCellWidth ? h.length : this.longestCellWidth);
