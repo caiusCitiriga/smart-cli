@@ -25,7 +25,6 @@ export class SmartCLI {
 const SC = new SmartCLI();
 const tbl = new TableStructure();
 tbl.heading = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5'];
-tbl.rowsWidth = [20, 20, 20];
 tbl.rows = [
     ['Row 1 value 1', 'Row 1 value 2', 'Row 1 value 3', 'Row 1 value 4', 'Row 1 value 5'],
     ['Row 2 value 1', 'Row 2 value 2', 'Row 2 value 3', 'Row 2 value 4', 'Row 2 value 5'],
