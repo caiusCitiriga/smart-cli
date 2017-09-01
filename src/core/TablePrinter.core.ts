@@ -31,19 +31,19 @@ export class TablePrinter {
     private printHeadingTopRow(heading: string[]) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
-                this.table += TableDelimiters.topLeft;
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += TableDelimiters.top }
-                this.table += TableDelimiters.topMid;
+                this.table += Chalk.gray(TableDelimiters.topLeft);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.top) }
+                this.table += Chalk.gray(TableDelimiters.topMid);
             }
 
             if (index === heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += TableDelimiters.top }
-                this.table += TableDelimiters.topRight;
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.top) }
+                this.table += Chalk.gray(TableDelimiters.topRight);
             }
 
             if (index !== 0 && index !== heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += TableDelimiters.top }
-                this.table += TableDelimiters.topMid;
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.top) }
+                this.table += Chalk.gray(TableDelimiters.topMid);
             }
         });
 
@@ -53,22 +53,22 @@ export class TablePrinter {
     private printHeadingValues(heading: string[]) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
-                this.table += TableDelimiters.left;
-                this.table += Chalk.yellow(headingVal);
+                this.table += Chalk.gray(TableDelimiters.left);
+                this.table += Chalk.bold.yellow(headingVal);
                 for (let i = 0; i <= this.longestCellWidth - headingVal.length; i++) { this.table += ' ' }
-                this.table += TableDelimiters.right;
+                this.table += Chalk.gray(TableDelimiters.right);
             }
 
             if (index === heading.length - 1) {
-                this.table += Chalk.yellow(headingVal);
+                this.table += Chalk.bold.yellow(headingVal);
                 for (let i = 0; i <= this.longestCellWidth - headingVal.length; i++) { this.table += ' ' }
-                this.table += TableDelimiters.right;
+                this.table += Chalk.gray(TableDelimiters.right);
             }
 
             if (index !== 0 && index !== heading.length - 1) {
-                this.table += Chalk.yellow(headingVal);
+                this.table += Chalk.bold.yellow(headingVal);
                 for (let i = 0; i <= this.longestCellWidth - headingVal.length; i++) { this.table += ' ' }
-                this.table += TableDelimiters.right;
+                this.table += Chalk.gray(TableDelimiters.right);
             }
         });
 
@@ -78,19 +78,19 @@ export class TablePrinter {
     private printHeadingFooter(heading: string[]) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
-                this.table += TableDelimiters.leftMid;
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += TableDelimiters.bottom }
-                this.table += TableDelimiters.midMid;
+                this.table += Chalk.gray(TableDelimiters.leftMid);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.bottom) }
+                this.table += Chalk.gray(TableDelimiters.midMid);
             }
 
             if (index === heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += TableDelimiters.bottom }
-                this.table += TableDelimiters.rightMid;
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.bottom) }
+                this.table += Chalk.gray(TableDelimiters.rightMid);
             }
 
             if (index !== 0 && index !== heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += TableDelimiters.bottom }
-                this.table += TableDelimiters.midMid;
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.bottom) }
+                this.table += Chalk.gray(TableDelimiters.midMid);
             }
         });
 
@@ -101,44 +101,44 @@ export class TablePrinter {
         rows.forEach((valuesSet, setIndex) => {
             valuesSet.forEach((value, valueIndex) => {
                 if (valueIndex === 0) {
-                    this.table += TableDelimiters.left;
+                    this.table += Chalk.gray(TableDelimiters.left);
                     this.table += value;
                     for (let i = 0; i <= this.longestCellWidth - value.length; i++) { this.table += ' ' }
-                    this.table += TableDelimiters.right;
+                    this.table += Chalk.gray(TableDelimiters.right);
                 }
 
                 if (valueIndex === valuesSet.length - 1) {
                     this.table += value;
                     for (let i = 0; i <= this.longestCellWidth - value.length; i++) { this.table += ' ' }
-                    this.table += TableDelimiters.right;
+                    this.table += Chalk.gray(TableDelimiters.right);
                 }
 
                 if (valueIndex !== 0 && valueIndex !== valuesSet.length - 1) {
                     this.table += value;
                     for (let i = 0; i <= this.longestCellWidth - value.length; i++) { this.table += ' ' }
-                    this.table += TableDelimiters.right;
+                    this.table += Chalk.gray(TableDelimiters.right);
                 }
             });
             this.table += '\n';
             valuesSet.forEach((value, valueIndex) => {
                 if (valueIndex === 0) {
-                    this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomLeft : TableDelimiters.leftMid;
-                    this.table += TableDelimiters.mid;
-                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += TableDelimiters.mid }
-                    this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomMid : TableDelimiters.midMid;
+                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomLeft) : Chalk.gray(TableDelimiters.leftMid);
+                    this.table += Chalk.gray(TableDelimiters.mid);
+                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
+                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
 
                 }
 
                 if (valueIndex === valuesSet.length - 1) {
-                    this.table += TableDelimiters.mid;
-                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += TableDelimiters.mid }
-                    this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomRight : TableDelimiters.rightMid;
+                    this.table += Chalk.gray(TableDelimiters.mid);
+                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
+                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomRight) : Chalk.gray(TableDelimiters.rightMid);
                 }
 
                 if (valueIndex !== 0 && valueIndex !== valuesSet.length - 1) {
-                    this.table += TableDelimiters.mid;
-                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += TableDelimiters.mid }
-                    this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomMid : TableDelimiters.midMid;
+                    this.table += Chalk.gray(TableDelimiters.mid);
+                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
+                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
                 }
             });
             this.table += '\n';
