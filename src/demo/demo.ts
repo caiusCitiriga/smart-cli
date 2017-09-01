@@ -1,38 +1,6 @@
-import { TableDelimiters } from './consts/table-delimiters.const';
+import { SmartCLI } from '../index';
+import { TableStructure } from '../entities/TableStructure.entity';
 
-import { TableStructure } from './entities/TableStructure.entity';
-
-import { Prompt } from './core/Prompt.core';
-import { TablePrinter } from './core/TablePrinter.core';
-import { GenericOutput } from './core/GenericOutput.core';
-
-export class SmartCLI {
-    private TablePrinter: TablePrinter;
-    private Prompt: Prompt;
-
-    public GenericOutput: GenericOutput;
-
-    constructor() {
-        this.TablePrinter = new TablePrinter();
-        this.Prompt = new Prompt();
-        this.GenericOutput = new GenericOutput();
-    }
-
-    public printTable(table: TableStructure) {
-        this.TablePrinter.printTable(table);
-    }
-
-    public prompt(question: string, callback: (answer: string) => boolean) {
-        this.Prompt.prompt(question, callback);
-    }
-}
-
-
-/**
- * ***************************************************************
- * Program run (will be removed from here)
- * ***************************************************************
- */
 const SC = new SmartCLI();
 const tbl = new TableStructure();
 tbl.heading = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5'];
@@ -87,3 +55,6 @@ SC.GenericOutput.printTitle('info, warning, error outputs');
 SC.GenericOutput.printInfo('This is a info message');
 SC.GenericOutput.printWarning('This is a warning message');
 SC.GenericOutput.printError('This is a error message');
+
+//  Prompt demo
+SC.prompt('Hey! Wanna see a cool table? Type y or n: ', promptHandler);
