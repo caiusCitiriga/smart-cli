@@ -4,13 +4,18 @@ import { TableStructure } from './entities/TableStructure.entity';
 
 import { Prompt } from './core/Prompt.core';
 import { TablePrinter } from './core/TablePrinter.core';
+import { GenericOutput } from './core/GenericOutput.core';
 
 export class SmartCLI {
     private TablePrinter: TablePrinter;
     private Prompt: Prompt;
+
+    public GenericOutput: GenericOutput;
+
     constructor() {
         this.TablePrinter = new TablePrinter();
         this.Prompt = new Prompt();
+        this.GenericOutput = new GenericOutput();
     }
 
     public printTable(table: TableStructure) {
@@ -42,16 +47,43 @@ tbl.rows = [
 
 const promptHandler = (answer: string) => {
     switch (answer.toLowerCase()) {
-        case 'true':
+        case 'y':
             SC.printTable(tbl);
             return true;
-        case 'false':
+        case 'f':
             console.log('Ugly you then!');
             return true;
         default:
-            SC.prompt('Not a valid answer. Use true or false: ', promptHandler);
+            SC.prompt('Not a valid answer. Use y or n: ', promptHandler);
             return false;
     }
 };
 
-SC.prompt('Want a table? Type true or false: ', promptHandler);
+//  Title demo
+SC.GenericOutput.printTitle('Normal title');
+SC.GenericOutput.printSubTitle('subtitle');
+console.log();
+
+// Boxed title demo
+SC.GenericOutput.printBoxedTitle('Boxed title');
+SC.GenericOutput.printSubTitle('subtitle');
+console.log();
+
+// Table demo
+SC.GenericOutput.printTitle('Table');
+SC.printTable(tbl);
+console.log();
+
+// Key value pairs demo
+SC.GenericOutput.printTitle('key value pairs');
+SC.GenericOutput.printKeyValue([
+    { key: 'Key one', value: 'Value one' },
+    { key: 'Key two longer than the first one', value: 'Value two' }
+]);
+console.log();
+
+//  Info - warn - error demo
+SC.GenericOutput.printTitle('info, warning, error outputs');
+SC.GenericOutput.printInfo('This is a info message');
+SC.GenericOutput.printWarning('This is a warning message');
+SC.GenericOutput.printError('This is a error message');
