@@ -9,7 +9,8 @@ import { GenericOutput } from './core/GenericOutput.core';
 export class SmartCLI {
     private TablePrinter: TablePrinter;
     private Prompt: Prompt;
-    private GenericOutput: GenericOutput;
+
+    public GenericOutput: GenericOutput;
 
     constructor() {
         this.TablePrinter = new TablePrinter();
@@ -24,11 +25,6 @@ export class SmartCLI {
     public prompt(question: string, callback: (answer: string) => boolean) {
         this.Prompt.prompt(question, callback);
     }
-
-    public printKeyValuePair(set: { key: string, value: string }[]) {
-        this.GenericOutput.printKeyValue(set);
-    }
-
 }
 
 
@@ -63,7 +59,31 @@ const promptHandler = (answer: string) => {
     }
 };
 
-SC.printKeyValuePair([
-    { key: 'MyKeyOne', value: 'MyValueOne' },
-    { key: 'MyKeyOneTooLong', value: 'MyValueOne' },
+//  Title demo
+SC.GenericOutput.printTitle('Normal title');
+SC.GenericOutput.printSubTitle('subtitle');
+console.log();
+
+// Boxed title demo
+SC.GenericOutput.printBoxedTitle('Boxed title');
+SC.GenericOutput.printSubTitle('subtitle');
+console.log();
+
+// Table demo
+SC.GenericOutput.printTitle('Table');
+SC.printTable(tbl);
+console.log();
+
+// Key value pairs demo
+SC.GenericOutput.printTitle('key value pairs');
+SC.GenericOutput.printKeyValue([
+    { key: 'Key one', value: 'Value one' },
+    { key: 'Key two longer than the first one', value: 'Value two' }
 ]);
+console.log();
+
+//  Info - warn - error demo
+SC.GenericOutput.printTitle('info, warning, error outputs');
+SC.GenericOutput.printInfo('This is a info message');
+SC.GenericOutput.printWarning('This is a warning message');
+SC.GenericOutput.printError('This is a error message');
