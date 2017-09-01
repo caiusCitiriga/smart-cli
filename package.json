@@ -1,19 +1,17 @@
 {
   "name": "smart-cli",
   "version": "0.1.0",
-  "description": "A library for dealing with the CLI input/output. This way in a smarter and colourful way",
-  "main": "dist/main.js",
+  "description": "A library for dealing with the CLI input/output. This time, in a smarter and colourful way",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Caius Citiriga",
+  "author": "Caius Citiriga <nbkmaxine@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@types/chalk": "^0.4.31",
     "@types/node": "^8.0.26",
-    "@types/rx": "^4.1.1",
     "chalk": "^2.1.0",
-    "rxjs": "^5.4.3",
     "typescript": "^2.4.2"
   },
   "devDependencies": {},
