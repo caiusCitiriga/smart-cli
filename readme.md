@@ -21,7 +21,7 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 ```typescript
 import * as SCLI from 'smart-cli';
 
-SCLI.GenericOutput.printTitle('Normal title');
+SCLI.SmartCLI.GenericOutput.printTitle('Normal title');
 ```
 
 ## SubTitle
@@ -32,8 +32,8 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 ```typescript
 import * as SCLI from 'smart-cli';
 
-SCLI.GenericOutput.printSubTitle('subtitle'); // will output: subtitle
-SCLI.GenericOutput.printSubTitle('Subtitle'); // will output: Subtitle
+SCLI.SmartCLI.GenericOutput.printSubTitle('subtitle'); // will output: subtitle
+SCLI.SmartCLI.GenericOutput.printSubTitle('Subtitle'); // will output: Subtitle
 ```
 
 ## BoxedTitle
@@ -44,7 +44,7 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 ```typescript
 import * as SCLI from 'smart-cli';
 
-SCLI.GenericOutput.printBoxedTitle('Boxed title');
+SCLI.SmartCLI.GenericOutput.printBoxedTitle('Boxed title');
 ```
 
 ## KeyValue pairs
@@ -60,7 +60,7 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 ```typescript
 import * as SCLI from 'smart-cli';
 
-SCLI.GenericOutput.printKeyValue([
+SCLI.SmartCLI.GenericOutput.printKeyValue([
     { key: 'Key one', value: 'Value one' },
     { key: 'Key two longer than the first one', value: 'Value two' }
 ]);
@@ -100,7 +100,7 @@ tbl.rows = [
 ];
 
 //  Render the table
-SCLI.printTable(tbl);
+SCLI.SmartCLI.printTable(tbl);
 ```
 
 ## INFO messages
@@ -111,7 +111,7 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 
 ```typescript
 import * as SCLI from 'smart-cli';
-SCLI.GenericOutput.printInfo('This is a info message');
+SCLI.SmartCLI.GenericOutput.printInfo('This is a info message');
 ```
 
 ## WARNING messages
@@ -122,7 +122,7 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 
 ```typescript
 import * as SCLI from 'smart-cli';
-SCLI.GenericOutput.printWarning('This is a warning message');
+SCLI.SmartCLI.GenericOutput.printWarning('This is a warning message');
 ```
 
 ## ERROR messages
@@ -133,7 +133,7 @@ We will access the **GenericOutput** property of the **SmartCLI** object, to use
 
 ```typescript
 import * as SCLI from 'smart-cli';
-SCLI.GenericOutput.printError('This is a error message');
+SCLI.SmartCLI.GenericOutput.printError('This is a error message');
 ```
 
 ## Prompt
@@ -158,7 +158,7 @@ const promptHandler = (answer: string) => {
 };
 
 //  Run the prompt
-SC.prompt('Hey! Wanna see a cool table? Type y or n: ', promptHandler);
+SCLI.SmartCLI.prompt('Hey! Wanna see a cool table? Type y or n: ', promptHandler);
 ```
 
 ### Here's a picture of how each output would look like. 
