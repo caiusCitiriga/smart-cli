@@ -1,103 +1,41 @@
-import * as Process from 'process';
-import * as Chalk from 'chalk';
+//  Consts
+import { TableDelimiters } from './consts/table-delimiters.const';
 
-export const TableDelimiters = {
-    top: '─',
-    topMid: '┬',
-    topLeft: '┌',
-    topRight: '┐',
-    bottom: '─',
-    bottomMid: '┴',
-    bottomLeft: '└',
-    bottomRight: '┘',
-    left: '│',
-    leftMid: '├',
-    mid: '─',
-    midMid: '┼',
-    right: '│',
-    rightMid: '┤',
-    middle: '│'
-}
+//  Entities
+import { TableStructure } from './entities/TableStructure.entity';
 
-export class TableStructure {
-    heading: string[];
-    rowsWidth: number[];
-    rows: Array<string[]>;
-}
-
-export class RowsConsistencyResult {
-    isOk: boolean;
-    wrongRows: {
-        rowIndex: number,
-        rowValues: any[];
-    }[];
-}
+//  Core
+import { TablePrinter } from './core/TablePrinter.core';
 
 export class SmartCLI {
-    private longestRowValue = 0;
-    private longestSlotIndex = -1;
+    private TablePrinter: TablePrinter;
 
-    public printTable(tableStruct: TableStructure) {
-        try {
-            this.checkRowsConsistency(tableStruct);
-            this.calculateLongestRowValueAndIndex(tableStruct);
-            let table = '';
-            tableStruct.heading.forEach(h => {
-
-            });
-
-        } catch (e) {
-            console.error(e);
-            return;
-        }
-
+    constructor() {
+        this.TablePrinter = new TablePrinter();
     }
 
-    private checkRowsConsistency(tableStruct: TableStructure) {
-        const headingLen = tableStruct.heading.length;
-        const wrongRows = new RowsConsistencyResult();
-        wrongRows.isOk = true;
-        wrongRows.wrongRows = [];
-
-        tableStruct.rows.forEach((r, i) => {
-            if (r.length !== headingLen) {
-                wrongRows.isOk = false;
-                wrongRows.wrongRows.push({ rowIndex: i, rowValues: r });
-            }
-        });
-
-        if (!wrongRows.isOk) {
-            let message = 'The rows values doesn\'t match the heading length. The following rows indexes are wrong: ';
-            wrongRows.wrongRows.forEach((r, i) => message += r.rowIndex + (i === wrongRows.wrongRows.length - 1 ? '' : ', '));
-            throw new Error(message);
-        }
-    }
-
-    private calculateLongestRowValueAndIndex(tableStruct: TableStructure): number {
-        tableStruct.rows.forEach(r => r.forEach((v, i) => {
-            const previousLongestRowValue = this.longestRowValue;
-            this.longestRowValue = v.length > this.longestRowValue ? v.length : this.longestRowValue;
-            this.longestSlotIndex = previousLongestRowValue === this.longestRowValue ? this.longestSlotIndex : i;
-
-        }));
-        return this.longestRowValue;
+    public printTable(table: TableStructure) {
+        this.TablePrinter.printTable(table);
     }
 }
 
-const SC = new SmartCLI();
 
-const tableStruct = new TableStructure();
-tableStruct.heading = ['Field 1', 'Field 2', 'Field 3', 'Field 4'];
-tableStruct.rows = [
-    ['Value 1', 'Value 2', 'Value 3', 'Very looooooooooooooooooong value'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-    ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
+/**
+ * ***************************************************************
+ * Program run
+ * ***************************************************************
+ */
+const SC = new SmartCLI();
+const tbl = new TableStructure();
+tbl.heading = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5'];
+tbl.rowsWidth = [20, 20, 20];
+tbl.rows = [
+    ['Row 1 value 1', 'Row 1 value 2', 'Row 1 value 3', 'Row 1 value 4', 'Row 1 value 5'],
+    ['Row 2 value 1', 'Row 2 value 2', 'Row 2 value 3', 'Row 2 value 4', 'Row 2 value 5'],
+    ['Row 3 value 1', 'Row 3 value 2', 'Row 3 value 3', 'Row 3 value 4', 'Row 3 value 5'],
+    ['Row 4 value 1', 'Row 4 value 2', 'Row 4 value 3', 'Row 4 value 4', 'Row 4 value 5'],
+    ['Row 5 value 1', 'Row 5 value 2', 'Row 5 value 3', 'Row 5 value 4', 'Row 5 value 5'],
+    ['Row 6 value 1', 'Row 6 value 2', 'Row 6 value 3', 'Row 6 value 4', 'Row 6 value 5'],
 ];
 
-SC.printTable(tableStruct);
+SC.printTable(tbl);
