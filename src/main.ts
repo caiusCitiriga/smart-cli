@@ -17,7 +17,7 @@ export class SmartCLI {
         this.TablePrinter.printTable(table);
     }
 
-    public prompt(question: string, callback: (answer: string) => void) {
+    public prompt(question: string, callback: (answer: string) => boolean) {
         this.Prompt.prompt(question, callback);
     }
 }
