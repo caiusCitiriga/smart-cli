@@ -1,6 +1,6 @@
 {
     "name": "smart-cli",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "A library for dealing with the CLI input/output. This time, in a smarter and colourful way",
     "main": "dist/index.js",
     "scripts": {
