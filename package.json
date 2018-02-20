@@ -1,41 +1,41 @@
 {
-  "name": "smart-cli",
-  "version": "0.3.0",
-  "description": "A library for dealing with the CLI input/output. This time, in a smarter and colourful way",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Caius Citiriga <nbkmaxine@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "@types/chalk": "^0.4.31",
-    "@types/node": "^8.0.26",
-    "chalk": "^2.1.0",
-    "typescript": "^2.4.2"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/caiusCitiriga/smart-cli.git"
-  },
-  "keywords": [
-    "cli",
-    "table",
-    "tabular",
-    "console",
-    "node-console",
-    "node-cli",
-    "prompt",
-    "chalk",
-    "color",
-    "colored",
-    "terminal",
-    "input",
-    "output"
-  ],
-  "bugs": {
-    "url": "https://github.com/caiusCitiriga/smart-cli/issues"
-  },
-  "homepage": "https://github.com/caiusCitiriga/smart-cli#readme"
+    "name": "smart-cli",
+    "version": "0.3.0",
+    "description": "A library for dealing with the CLI input/output. This time, in a smarter and colourful way",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "rm -r dist && tsc"
+    },
+    "author": "Caius Citiriga <nbkmaxine@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "@types/chalk": "0.4.31",
+        "@types/node": "8.0.26",
+        "chalk": "2.1.0",
+        "typescript": "2.4.2"
+    },
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/caiusCitiriga/smart-cli.git"
+    },
+    "keywords": [
+        "cli",
+        "table",
+        "tabular",
+        "console",
+        "node-console",
+        "node-cli",
+        "prompt",
+        "chalk",
+        "color",
+        "colored",
+        "terminal",
+        "input",
+        "output"
+    ],
+    "bugs": {
+        "url": "https://github.com/caiusCitiriga/smart-cli/issues"
+    },
+    "homepage": "https://github.com/caiusCitiriga/smart-cli#readme"
 }
