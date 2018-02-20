@@ -6,7 +6,7 @@ import { Prompt } from './core/Prompt.core';
 import { TablePrinter } from './core/TablePrinter.core';
 import { GenericOutput } from './core/GenericOutput.core';
 
-class SCLI {
+export class SCLI {
     private TablePrinter: TablePrinter;
     private Prompt: Prompt;
 

@@ -16,5 +16,6 @@ class SCLI {
         this.Prompt.prompt(question, callback);
     }
 }
+exports.SCLI = SCLI;
 exports.SmartCLI = new SCLI();
 //# sourceMappingURL=index.js.map
