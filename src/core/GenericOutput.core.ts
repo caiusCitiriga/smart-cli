@@ -60,12 +60,17 @@ export class GenericOutput {
         console.log(Chalk.magenta(title.toUpperCase()));
     }
 
-    public printKeyValue(set: { key: string; value: string }[]) {
-        const longestKeyLen = <number>set.reduce((p, c) => p < c.key.length ? c.key.length : false, 0);
+    public printKeyValue(set: { key: string; value: string }[], space_char = ' ') {
+        let longestKeyLen = set[0].key.length;
+        set.forEach(s => longestKeyLen = s.key.length > longestKeyLen ? s.key.length : longestKeyLen);
+
         set.forEach(pair => {
-            let spaces = '';
-            for (let i = 0; i < (longestKeyLen - pair.key.length); i++) { spaces += ' ' }
-            console.log(`${Chalk.bold.yellow(pair.key)}: ${spaces + Chalk.grey(pair.value)}`);
-        })
+            let spaces = space_char;
+            for (let i = 0; i < (longestKeyLen - pair.key.length); i++) {
+                spaces += space_char;
+            }
+
+            console.log(`- ${Chalk.yellow(pair.key)}: ${spaces + pair.value}`);
+        });
     }
 }
