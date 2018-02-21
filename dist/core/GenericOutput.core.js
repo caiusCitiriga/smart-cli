@@ -48,14 +48,15 @@ class GenericOutput {
         }
         console.log(Chalk.magenta(title.toUpperCase()));
     }
-    printKeyValue(set) {
-        const longestKeyLen = set.reduce((p, c) => p < c.key.length ? c.key.length : false, 0);
+    printKeyValue(set, space_char = ' ') {
+        let longestKeyLen = set[0].key.length;
+        set.forEach(s => longestKeyLen = s.key.length > longestKeyLen ? s.key.length : longestKeyLen);
         set.forEach(pair => {
-            let spaces = '';
+            let spaces = space_char;
             for (let i = 0; i < (longestKeyLen - pair.key.length); i++) {
-                spaces += ' ';
+                spaces += space_char;
             }
-            console.log(`${Chalk.bold.yellow(pair.key)}: ${spaces + Chalk.grey(pair.value)}`);
+            console.log(`- ${Chalk.yellow(pair.key)}: ${spaces + pair.value}`);
         });
     }
 }

@@ -9,5 +9,5 @@ export declare class GenericOutput {
     printKeyValue(set: {
         key: string;
         value: string;
-    }[]): void;
+    }[], space_char?: string): void;
 }
