@@ -6,17 +6,21 @@
             "dom"
         ],
         "types": [
-            "reflect-metadata"
+            "reflect-metadata",
+            "jasmine"
         ],
         "rootDir": "src",
-        "outDir": "build",
-        // "outFile": "index.js",
-        "module": "system",
+        "outDir": "dist",
+        "module": "commonjs",
         "declaration": true,
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
-    }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }
 // {
 //     "compilerOptions": {

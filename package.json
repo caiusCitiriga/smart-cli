@@ -1,25 +1,30 @@
 {
     "name": "smart-cli",
     "version": "0.3.3",
-    "description": "A library for dealing with the CLI input/output. This time, in a smarter and colourful way",
-    "main": "index.js",
+    "description": "A complete framework for creating amazing Console Applications in Node.js",
+    "main": "dist/index.js",
     "scripts": {
-        "build": "rm -r dist && tsc"
+        "dev": "rimraf dist && tsc --watch",
+        "build": "rimraf dist && tsc",
+        "test": "jasmine --config=jasmine.json"
     },
     "author": "Caius Citiriga <nbkmaxine@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "@types/chalk": "0.4.31",
         "chalk": "2.1.0",
-        "inversify": "^4.11.1",
-        "reflect-metadata": "^0.1.12",
-        "typescript": "2.4.2"
+        "inversify": "4.11.1",
+        "typescript": "2.4.2",
+        "reflect-metadata": "0.1.12"
     },
     "devDependencies": {
-        "@types/node": "^8.0.26",
-        "codelyzer": "^4.1.0",
-        "jasmine": "^3.0.0",
-        "tslint": "^5.9.1"
+        "@types/chalk": "0.4.31",
+        "@types/jasmine": "2.8.6",
+        "@types/node": "8.0.26",
+        "@types/inversify": "2.0.33",
+        "codelyzer": "4.1.0",
+        "jasmine": "3.0.0",
+        "tslint": "5.9.1",
+        "rimraf": "2.6.2"
     },
     "repository": {
         "type": "git",
