@@ -1,7 +1,7 @@
-import "reflect-metadata";
-import { injectable } from "inversify";
+import 'reflect-metadata';
+import { injectable } from 'inversify';
 
-import { ICommand } from "../interfaces/command.interface";
+import { ICommand } from '../interfaces/command.interface';
 
 @injectable()
 export class Command implements ICommand {

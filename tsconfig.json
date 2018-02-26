@@ -9,8 +9,10 @@
             "reflect-metadata"
         ],
         "rootDir": "src",
-        "outDir": "dist",
-        "module": "commonjs",
+        "outDir": "build",
+        // "outFile": "index.js",
+        "module": "system",
+        "declaration": true,
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true

@@ -2,7 +2,7 @@
     "name": "smart-cli",
     "version": "0.3.3",
     "description": "A library for dealing with the CLI input/output. This time, in a smarter and colourful way",
-    "main": "dist/index.js",
+    "main": "index.js",
     "scripts": {
         "build": "rm -r dist && tsc"
     },
@@ -17,6 +17,7 @@
     },
     "devDependencies": {
         "@types/node": "^8.0.26",
+        "codelyzer": "^4.1.0",
         "jasmine": "^3.0.0",
         "tslint": "^5.9.1"
     },
