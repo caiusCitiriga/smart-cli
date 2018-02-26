@@ -1,11 +1,15 @@
-// file inversify.config.ts
-
 import { Container } from "inversify";
-import { TYPES } from "./types";
-import { Warrior, Weapon, ThrowableWeapon } from "./interfaces";
-import { Ninja, Katana, Shuriken } from "./entities";
 
-const myContainer = new Container();
-myContainer.bind<Warrior>(TYPES.Warrior).to(Ninja);
-myContainer.bind<Weapon>(TYPES.Weapon).to(Katana);
-myContainer.bind<ThrowableWeapon>(TYPES.ThrowableWeapon).to(Shuriken);
+import { TYPES } from "./consts/types.const";
+
+import { IParser } from "./interfaces/parser.interface";
+import { IDispatcher } from "./interfaces/dispatcher.interface";
+
+import { Parser } from './entities/parser.entity';
+import { Dispatcher } from "./entities/dispatcher.entity";
+
+const IoCContainer = new Container();
+IoCContainer.bind<IParser>(TYPES.IParser).to(Parser);
+IoCContainer.bind<IDispatcher>(TYPES.IDispatcher).to(Dispatcher);
+
+export { IoCContainer };
