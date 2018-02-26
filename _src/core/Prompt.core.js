@@ -1,20 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const readline = require("readline");
-class Prompt {
-    prompt(question, callback) {
+var readline = require("readline");
+var Prompt = (function () {
+    function Prompt() {
+    }
+    Prompt.prototype.prompt = function (question, callback) {
+        var _this = this;
         this.rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout,
             terminal: true
         });
         this.rl.resume();
-        this.rl.question(question, (answer) => {
+        this.rl.question(question, function (answer) {
             if (callback(answer)) {
-                this.rl = null;
+                _this.rl = null;
             }
         });
-    }
-}
+    };
+    return Prompt;
+}());
 exports.Prompt = Prompt;
-//# sourceMappingURL=Prompt.core.js.map

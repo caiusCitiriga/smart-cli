@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class TableStructure {
-}
+var TableStructure = (function () {
+    function TableStructure() {
+    }
+    return TableStructure;
+}());
 exports.TableStructure = TableStructure;
-//# sourceMappingURL=TableStructure.entity.js.map

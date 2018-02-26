@@ -10,11 +10,16 @@
     "license": "MIT",
     "dependencies": {
         "@types/chalk": "0.4.31",
-        "@types/node": "8.0.26",
         "chalk": "2.1.0",
+        "inversify": "^4.11.1",
+        "reflect-metadata": "^0.1.12",
         "typescript": "2.4.2"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "@types/node": "^8.0.26",
+        "jasmine": "^3.0.0",
+        "tslint": "^5.9.1"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/caiusCitiriga/smart-cli.git"

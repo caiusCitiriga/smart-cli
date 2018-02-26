@@ -17,4 +17,3 @@ exports.TableDelimiters = {
     rightMid: '┤',
     middle: '│'
 };
-//# sourceMappingURL=table-delimiters.const.js.map
