@@ -8,5 +8,6 @@ export interface ICommand {
 
     setName(name: string): void;
     setFlags(flags: IFlag[]): void;
+    setAction(func: () => void): void;
     setDescription(desc: string): void;
 }

@@ -9,6 +9,7 @@ var Command = (function () {
     Command.prototype.getDescription = function () { return this._description; };
     Command.prototype.setName = function (name) { this._name = name; };
     Command.prototype.setFlags = function (flags) { this._flags = flags; };
+    Command.prototype.setAction = function (func) { this._action = func; };
     Command.prototype.setDescription = function (desc) { this._description = desc; };
     Command.prototype.run = function () {
         this._action();

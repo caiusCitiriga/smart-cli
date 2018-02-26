@@ -9,23 +9,46 @@ import { IFlag } from '../interfaces/flag.interface';
 
 @injectable()
 export class Parser implements IParser {
-    private _command: ICommand;
     private _flagDelimiter: string;
     private _flagOptionsDelimiter: string;
 
+    private _parsedCommand: ICommand;
+    private _availableCommands: ICommand[];
+
     public constructor() {
+        //  Sugar
         this._flagDelimiter = '--';
         this._flagOptionsDelimiter = ':';
-        this._command = new Command();
+
+        //  Configurations
+        this._availableCommands = [];
+        this._parsedCommand = new Command();
+    }
+
+    public addCommand(cmd: ICommand): void {
+        this._availableCommands.push(cmd);
     }
 
     public parse(rawInput: string): ICommand {
         const commandName = this.extractCommandName(rawInput);
         const flags = this.extractFlags(rawInput);
 
-        this._command.setName(commandName);
-        this._command.setFlags(flags);
-        return this._command;
+        this._parsedCommand.setFlags(flags);
+        this._parsedCommand.setName(commandName);
+
+        const matchingCommand = this._availableCommands.find(c => c.getName() === this._parsedCommand.getName());
+
+        if (!matchingCommand) {
+            const noMatchingCommandException = new Error();
+            noMatchingCommandException.name = 'NoMatchingCommand';
+            noMatchingCommandException.message = `No matching command was found for ${this._parsedCommand.getName()}`;
+
+            throw noMatchingCommandException;
+        }
+
+        this._parsedCommand.setDescription(matchingCommand.getDescription());
+
+        return this._parsedCommand;
     }
 
     private extractCommandName(rawInput: string): string {
@@ -33,20 +56,23 @@ export class Parser implements IParser {
     }
 
     private extractFlags(rawInput: string): IFlag[] {
-        const xplItems = rawInput.split(this._flagDelimiter);
-        xplItems.shift();   //  remove the command
+        const splittedRawFlags = rawInput.split(this._flagDelimiter);
+        splittedRawFlags.shift();   //  remove the command
 
         const flags: IFlag[] = [];
-        xplItems.forEach(item => {
-            const xplItems = item.split(this._flagOptionsDelimiter);
+        splittedRawFlags.forEach(currentRawFlag => {
+            const splittedRawOptions = currentRawFlag.split(this._flagOptionsDelimiter);
 
-            const flag = xplItems[0].trim();
-            xplItems.shift();   //  remove the flag
+            //  Extract the flag from the string
+            const parsedFlag = splittedRawOptions[0].trim();
+            //  Throw it from the array
+            splittedRawOptions.shift();
 
             const opts = [];
-            xplItems.forEach(opt => opts.push(opt.trim()));
+            //  Loop the remaining options (from now on there will be only options)
+            splittedRawOptions.forEach(opt => opts.push(opt.trim()));
 
-            flags.push({ name: flag, options: opts });
+            flags.push({ name: parsedFlag, options: opts });
         });
 
         return flags;

@@ -14,32 +14,50 @@ var inversify_1 = require("inversify");
 var command_entity_1 = require("./command.entity");
 var Parser = (function () {
     function Parser() {
+        //  Sugar
         this._flagDelimiter = '--';
         this._flagOptionsDelimiter = ':';
-        this._command = new command_entity_1.Command();
+        //  Configurations
+        this._availableCommands = [];
+        this._parsedCommand = new command_entity_1.Command();
     }
+    Parser.prototype.addCommand = function (cmd) {
+        this._availableCommands.push(cmd);
+    };
     Parser.prototype.parse = function (rawInput) {
+        var _this = this;
         var commandName = this.extractCommandName(rawInput);
         var flags = this.extractFlags(rawInput);
-        this._command.setName(commandName);
-        this._command.setFlags(flags);
-        return this._command;
+        this._parsedCommand.setFlags(flags);
+        this._parsedCommand.setName(commandName);
+        var matchingCommand = this._availableCommands.find(function (c) { return c.getName() === _this._parsedCommand.getName(); });
+        if (!matchingCommand) {
+            var noMatchingCommandException = new Error();
+            noMatchingCommandException.name = 'NoMatchingCommand';
+            noMatchingCommandException.message = "No matching command was found for " + this._parsedCommand.getName();
+            throw noMatchingCommandException;
+        }
+        this._parsedCommand.setDescription(matchingCommand.getDescription());
+        return this._parsedCommand;
     };
     Parser.prototype.extractCommandName = function (rawInput) {
         return rawInput.split(this._flagDelimiter)[0].trim();
     };
     Parser.prototype.extractFlags = function (rawInput) {
         var _this = this;
-        var xplItems = rawInput.split(this._flagDelimiter);
-        xplItems.shift(); //  remove the command
+        var splittedRawFlags = rawInput.split(this._flagDelimiter);
+        splittedRawFlags.shift(); //  remove the command
         var flags = [];
-        xplItems.forEach(function (item) {
-            var xplItems = item.split(_this._flagOptionsDelimiter);
-            var flag = xplItems[0].trim();
-            xplItems.shift(); //  remove the flag
+        splittedRawFlags.forEach(function (currentRawFlag) {
+            var splittedRawOptions = currentRawFlag.split(_this._flagOptionsDelimiter);
+            //  Extract the flag from the string
+            var parsedFlag = splittedRawOptions[0].trim();
+            //  Throw it from the array
+            splittedRawOptions.shift();
             var opts = [];
-            xplItems.forEach(function (opt) { return opts.push(opt.trim()); });
-            flags.push({ name: flag, options: opts });
+            //  Loop the remaining options (from now on there will be only options)
+            splittedRawOptions.forEach(function (opt) { return opts.push(opt.trim()); });
+            flags.push({ name: parsedFlag, options: opts });
         });
         return flags;
     };
