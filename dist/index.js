@@ -20,15 +20,4 @@ var SmartCLI = (function () {
     return SmartCLI;
 }());
 exports.SmartCLI = SmartCLI;
-var cli = new SmartCLI();
-var command = {
-    name: 'cmd',
-    action: function () { return null; },
-    description: 'Test',
-    flags: []
-};
-//  Act
-cli.addCommand(command);
-var userRanCmd = 'cmd';
-var returnedRanCmd = cli.run(userRanCmd);
 //# sourceMappingURL=index.js.map
