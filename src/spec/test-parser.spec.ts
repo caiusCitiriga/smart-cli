@@ -58,9 +58,8 @@ describe('Parser', function () {
         const parsedCmd = parser.parse(rawCmd);
 
         //  Assert
-        expect(parsedCmd.getFlags()).toEqual([
-            { name: 'flag', options: ['options'] }
-        ]);
+        expect(parsedCmd.getFlags()[0].name).toEqual('flag');
+        expect(parsedCmd.getFlags()[0].options[0].name).toEqual('options');
     });
 
     it('Should return multiple flags and options sets', () => {
@@ -87,8 +86,8 @@ describe('Parser', function () {
         expect(flags[0].name).toEqual('flag1');
         expect(flags[1].name).toEqual('flag2');
 
-        expect(flags[0].options[0]).toEqual('options1');
-        expect(flags[1].options[0]).toEqual('options2');
+        expect(flags[0].options[0].name).toEqual('options1');
+        expect(flags[1].options[0].name).toEqual('options2');
     });
 
     it('Should return one flag with two options', () => {
@@ -111,8 +110,8 @@ describe('Parser', function () {
         //  Assert
         expect(flags[0].name).toEqual('flag1');
 
-        expect(flags[0].options[0]).toEqual('options1=1');
-        expect(flags[0].options[1]).toEqual('options2=2');
+        expect(flags[0].options[0].name).toEqual('options1');
+        expect(flags[0].options[1].name).toEqual('options2');
     });
 
     it('Should throw if no matching command was found', () => {
@@ -135,5 +134,25 @@ describe('Parser', function () {
 
         //  Act/Assert
         expect(() => parser.parse(rawCmd)).toThrow(noMatchingCommandException);
+    });
+
+    it('Should separate the options by name and value correctly', () => {
+        //  Arrange
+        const cmds = [
+            getCommand({
+                name: 'cmd',
+                action: () => null,
+                desc: 'Test command',
+                flags: [{ name: 'flag1', options: [] }]
+            })
+        ];
+        const rawCmd = 'cmd --flag1:opt1=value1';
+        const parser = getParserWithCommandConfig(cmds);
+
+        //  Act/Assert
+        const returnedCommand = parser.parse(rawCmd);
+        expect(returnedCommand.getFlags()[0].name).toBe('flag1');
+        expect(returnedCommand.getFlags()[0].options[0].name).toBe('opt1');
+        expect(returnedCommand.getFlags()[0].options[0].value).toBe('value1');
     });
 });

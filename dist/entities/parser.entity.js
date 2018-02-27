@@ -17,6 +17,7 @@ var Parser = (function () {
         //  Sugar
         this._flagDelimiter = '--';
         this._flagOptionsDelimiter = ':';
+        this._flagOptionValueDelimiter = '=';
         //  Configurations
         this._availableCommands = [];
     }
@@ -56,7 +57,13 @@ var Parser = (function () {
             splittedRawOptions.shift();
             var opts = [];
             //  Loop the remaining options (from now on there will be only options)
-            splittedRawOptions.forEach(function (opt) { return opts.push(opt.trim()); });
+            splittedRawOptions.forEach(function (opt) {
+                var name = opt.split(_this._flagOptionValueDelimiter)[0];
+                var value = opt.split(_this._flagOptionValueDelimiter)[1];
+                name = name ? name.trim() : null;
+                value = value ? value.trim() : null;
+                opts.push({ name: name, value: value });
+            });
             flags.push({ name: parsedFlag, options: opts });
         });
         return flags;

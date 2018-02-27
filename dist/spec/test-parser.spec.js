@@ -46,9 +46,8 @@ describe('Parser', function () {
         //  Act
         var parsedCmd = parser.parse(rawCmd);
         //  Assert
-        expect(parsedCmd.getFlags()).toEqual([
-            { name: 'flag', options: ['options'] }
-        ]);
+        expect(parsedCmd.getFlags()[0].name).toEqual('flag');
+        expect(parsedCmd.getFlags()[0].options[0].name).toEqual('options');
     });
     it('Should return multiple flags and options sets', function () {
         //  Arrange
@@ -71,8 +70,8 @@ describe('Parser', function () {
         //  Assert
         expect(flags[0].name).toEqual('flag1');
         expect(flags[1].name).toEqual('flag2');
-        expect(flags[0].options[0]).toEqual('options1');
-        expect(flags[1].options[0]).toEqual('options2');
+        expect(flags[0].options[0].name).toEqual('options1');
+        expect(flags[1].options[0].name).toEqual('options2');
     });
     it('Should return one flag with two options', function () {
         //  Arrange
@@ -91,8 +90,8 @@ describe('Parser', function () {
         var flags = parsedCmd.getFlags();
         //  Assert
         expect(flags[0].name).toEqual('flag1');
-        expect(flags[0].options[0]).toEqual('options1=1');
-        expect(flags[0].options[1]).toEqual('options2=2');
+        expect(flags[0].options[0].name).toEqual('options1');
+        expect(flags[0].options[1].name).toEqual('options2');
     });
     it('Should throw if no matching command was found', function () {
         //  Arrange
@@ -112,6 +111,24 @@ describe('Parser', function () {
         noMatchingCommandException.message = "No matching command was found for " + rawCmd;
         //  Act/Assert
         expect(function () { return parser.parse(rawCmd); }).toThrow(noMatchingCommandException);
+    });
+    it('Should separate the options by name and value correctly', function () {
+        //  Arrange
+        var cmds = [
+            getCommand({
+                name: 'cmd',
+                action: function () { return null; },
+                desc: 'Test command',
+                flags: [{ name: 'flag1', options: [] }]
+            })
+        ];
+        var rawCmd = 'cmd --flag1:opt1=value1';
+        var parser = getParserWithCommandConfig(cmds);
+        //  Act/Assert
+        var returnedCommand = parser.parse(rawCmd);
+        expect(returnedCommand.getFlags()[0].name).toBe('flag1');
+        expect(returnedCommand.getFlags()[0].options[0].name).toBe('opt1');
+        expect(returnedCommand.getFlags()[0].options[0].value).toBe('value1');
     });
 });
 //# sourceMappingURL=test-parser.spec.js.map

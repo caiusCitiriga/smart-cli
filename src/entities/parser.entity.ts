@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 
 import { Command } from './command.entity';
 
-import { IFlag } from '../interfaces/flag.interface';
+import { IFlag, IOption } from '../interfaces/flag.interface';
 import { IParser } from '../interfaces/parser.interface';
 import { ICommand } from '../interfaces/command.interface';
 import { ICommandOpts } from '../interfaces/command-opts.interface';
@@ -12,6 +12,7 @@ import { ICommandOpts } from '../interfaces/command-opts.interface';
 export class Parser implements IParser {
     private _flagDelimiter: string;
     private _flagOptionsDelimiter: string;
+    private _flagOptionValueDelimiter: string;
 
     private _availableCommands: ICommand[];
 
@@ -19,6 +20,7 @@ export class Parser implements IParser {
         //  Sugar
         this._flagDelimiter = '--';
         this._flagOptionsDelimiter = ':';
+        this._flagOptionValueDelimiter = '=';
 
         //  Configurations
         this._availableCommands = [];
@@ -67,9 +69,17 @@ export class Parser implements IParser {
             //  Throw it from the array
             splittedRawOptions.shift();
 
-            const opts = [];
+            const opts: IOption[] = [];
             //  Loop the remaining options (from now on there will be only options)
-            splittedRawOptions.forEach(opt => opts.push(opt.trim()));
+            splittedRawOptions.forEach(opt => {
+                let name = opt.split(this._flagOptionValueDelimiter)[0];
+                let value = opt.split(this._flagOptionValueDelimiter)[1];
+
+                name = name ? name.trim() : null;
+                value = value ? value.trim() : null;
+
+                opts.push({ name: name, value: value });
+            });
 
             flags.push({ name: parsedFlag, options: opts });
         });
