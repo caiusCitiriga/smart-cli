@@ -19,26 +19,27 @@ var Parser = (function () {
         this._flagOptionsDelimiter = ':';
         //  Configurations
         this._availableCommands = [];
-        this._parsedCommand = new command_entity_1.Command();
     }
-    Parser.prototype.addCommand = function (cmd) {
+    Parser.prototype.addCommand = function (cmdOpts) {
+        var cmd = new command_entity_1.Command();
+        cmd.setName(cmdOpts.name);
+        cmd.setFlags(cmdOpts.flags);
+        cmd.setAction(cmdOpts.action);
+        cmd.setDescription(cmdOpts.description);
         this._availableCommands.push(cmd);
     };
     Parser.prototype.parse = function (rawInput) {
-        var _this = this;
-        var commandName = this.extractCommandName(rawInput);
         var flags = this.extractFlags(rawInput);
-        this._parsedCommand.setFlags(flags);
-        this._parsedCommand.setName(commandName);
-        var matchingCommand = this._availableCommands.find(function (c) { return c.getName() === _this._parsedCommand.getName(); });
+        var commandName = this.extractCommandName(rawInput);
+        var matchingCommand = this._availableCommands.find(function (c) { return c.getName() === commandName; });
         if (!matchingCommand) {
             var noMatchingCommandException = new Error();
             noMatchingCommandException.name = 'NoMatchingCommand';
-            noMatchingCommandException.message = "No matching command was found for " + this._parsedCommand.getName();
+            noMatchingCommandException.message = "No matching command was found for " + commandName;
             throw noMatchingCommandException;
         }
-        this._parsedCommand.setDescription(matchingCommand.getDescription());
-        return this._parsedCommand;
+        matchingCommand.setFlags(flags);
+        return matchingCommand;
     };
     Parser.prototype.extractCommandName = function (rawInput) {
         return rawInput.split(this._flagDelimiter)[0].trim();
@@ -68,3 +69,4 @@ var Parser = (function () {
     return Parser;
 }());
 exports.Parser = Parser;
+//# sourceMappingURL=parser.entity.js.map

@@ -17,3 +17,4 @@ var Command = (function () {
     return Command;
 }());
 exports.Command = Command;
+//# sourceMappingURL=command.entity.js.map

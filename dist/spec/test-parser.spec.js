@@ -1,18 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var parser_entity_1 = require("../entities/parser.entity");
-var command_entity_1 = require("../entities/command.entity");
 function getParserWithCommandConfig(cmds) {
     var parser = new parser_entity_1.Parser();
     cmds.forEach(function (cmd) { return parser.addCommand(cmd); });
     return parser;
 }
 function getCommand(opts) {
-    var cmd = new command_entity_1.Command();
-    cmd.setName(opts.name);
-    cmd.setFlags(opts.flags);
-    cmd.setDescription(opts.desc);
-    return cmd;
+    return {
+        name: opts.name,
+        flags: opts.flags,
+        action: opts.action,
+        description: opts.desc,
+    };
 }
 describe('Parser', function () {
     it('Should return the command name parsed correctly', function () {
@@ -21,6 +21,7 @@ describe('Parser', function () {
             getCommand({
                 name: 'cmd',
                 desc: 'Test command',
+                action: function () { return null; },
                 flags: [{ name: 'flag', options: [] }]
             })
         ];
@@ -36,6 +37,7 @@ describe('Parser', function () {
         var cmds = [
             getCommand({
                 name: 'cmd',
+                action: function () { return null; },
                 desc: 'Test command',
                 flags: [{ name: 'flag', options: [] }]
             })
@@ -54,6 +56,7 @@ describe('Parser', function () {
         var cmds = [
             getCommand({
                 name: 'cmd',
+                action: function () { return null; },
                 desc: 'Test command',
                 flags: [
                     { name: 'flag1', options: [] },
@@ -77,6 +80,7 @@ describe('Parser', function () {
         var cmds = [
             getCommand({
                 name: 'cmd',
+                action: function () { return null; },
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
@@ -96,6 +100,7 @@ describe('Parser', function () {
         var cmds = [
             getCommand({
                 name: 'cmd',
+                action: function () { return null; },
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
@@ -110,3 +115,4 @@ describe('Parser', function () {
         expect(function () { return parser.parse(rawCmd); }).toThrow(noMatchingCommandException);
     });
 });
+//# sourceMappingURL=test-parser.spec.js.map

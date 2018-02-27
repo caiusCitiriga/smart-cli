@@ -1,9 +1,9 @@
-import { ICommand } from './interfaces/command.interface';
+import { ICommandOpts } from './interfaces/command-opts.interface';
 export declare class SmartCLI {
     private _parser;
-    private _commands;
     private _dispatcher;
+    private _commands;
     constructor();
-    addCommand(cmd: ICommand): SmartCLI;
-    run(rawUserInput: string): void;
+    addCommand(cmd: ICommandOpts): SmartCLI;
+    run(rawUserInput: string): string;
 }

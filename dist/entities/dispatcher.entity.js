@@ -12,7 +12,8 @@ var Dispatcher = (function () {
     function Dispatcher() {
     }
     Dispatcher.prototype.dispatch = function (cmd) {
-        console.log('Dispatching...');
+        cmd.run();
+        return "Dispatching " + cmd.getName();
     };
     Dispatcher = __decorate([
         inversify_1.injectable()
@@ -20,3 +21,4 @@ var Dispatcher = (function () {
     return Dispatcher;
 }());
 exports.Dispatcher = Dispatcher;
+//# sourceMappingURL=dispatcher.entity.js.map

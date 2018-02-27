@@ -3,16 +3,16 @@ import { injectable } from 'inversify';
 
 import { Command } from './command.entity';
 
+import { IFlag } from '../interfaces/flag.interface';
 import { IParser } from '../interfaces/parser.interface';
 import { ICommand } from '../interfaces/command.interface';
-import { IFlag } from '../interfaces/flag.interface';
+import { ICommandOpts } from '../interfaces/command-opts.interface';
 
 @injectable()
 export class Parser implements IParser {
     private _flagDelimiter: string;
     private _flagOptionsDelimiter: string;
 
-    private _parsedCommand: ICommand;
     private _availableCommands: ICommand[];
 
     public constructor() {
@@ -22,33 +22,33 @@ export class Parser implements IParser {
 
         //  Configurations
         this._availableCommands = [];
-        this._parsedCommand = new Command();
     }
 
-    public addCommand(cmd: ICommand): void {
+    public addCommand(cmdOpts: ICommandOpts): void {
+        const cmd = new Command();
+        cmd.setName(cmdOpts.name);
+        cmd.setFlags(cmdOpts.flags);
+        cmd.setAction(cmdOpts.action);
+        cmd.setDescription(cmdOpts.description);
+
         this._availableCommands.push(cmd);
     }
 
     public parse(rawInput: string): ICommand {
-        const commandName = this.extractCommandName(rawInput);
         const flags = this.extractFlags(rawInput);
-
-        this._parsedCommand.setFlags(flags);
-        this._parsedCommand.setName(commandName);
-
-        const matchingCommand = this._availableCommands.find(c => c.getName() === this._parsedCommand.getName());
+        const commandName = this.extractCommandName(rawInput);
+        const matchingCommand = this._availableCommands.find(c => c.getName() === commandName);
 
         if (!matchingCommand) {
             const noMatchingCommandException = new Error();
             noMatchingCommandException.name = 'NoMatchingCommand';
-            noMatchingCommandException.message = `No matching command was found for ${this._parsedCommand.getName()}`;
+            noMatchingCommandException.message = `No matching command was found for ${commandName}`;
 
             throw noMatchingCommandException;
         }
 
-        this._parsedCommand.setDescription(matchingCommand.getDescription());
-
-        return this._parsedCommand;
+        matchingCommand.setFlags(flags);
+        return matchingCommand;
     }
 
     private extractCommandName(rawInput: string): string {

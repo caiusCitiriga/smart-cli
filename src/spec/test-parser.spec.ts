@@ -3,30 +3,32 @@ import { IParser } from '../interfaces/parser.interface';
 import { ICommand } from '../interfaces/command.interface';
 import { IFlag } from '../interfaces/flag.interface';
 import { Command } from '../entities/command.entity';
+import { ICommandOpts } from '../interfaces/command-opts.interface';
 
-function getParserWithCommandConfig(cmds: ICommand[]): IParser {
+function getParserWithCommandConfig(cmds: ICommandOpts[]): IParser {
     const parser = new Parser();
     cmds.forEach(cmd => parser.addCommand(cmd));
 
     return parser;
 }
 
-function getCommand(opts: { name: string, desc: string, flags: IFlag[] }): ICommand {
-    const cmd = new Command();
-    cmd.setName(opts.name);
-    cmd.setFlags(opts.flags);
-    cmd.setDescription(opts.desc);
-
-    return cmd;
+function getCommand(opts: { name: string, desc: string, flags: IFlag[], action: () => void }): ICommandOpts {
+    return {
+        name: opts.name,
+        flags: opts.flags,
+        action: opts.action,
+        description: opts.desc,
+    }
 }
 
 describe('Parser', function () {
-    it('Should return the command name parsed correctly', function () {
+    it('Should return the command name parsed correctly', () => {
         //  Arrange
         const cmds = [
             getCommand({
                 name: 'cmd',
                 desc: 'Test command',
+                action: () => null,
                 flags: [{ name: 'flag', options: [] }]
             })
         ];
@@ -40,11 +42,12 @@ describe('Parser', function () {
         expect(parsedCmd.getName()).toBe('cmd');
     });
 
-    it('Should return the flag and the option parsed correctly', function () {
+    it('Should return the flag and the option parsed correctly', () => {
         //  Arrange
         const cmds = [
             getCommand({
                 name: 'cmd',
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag', options: [] }]
             })
@@ -61,11 +64,12 @@ describe('Parser', function () {
         ]);
     });
 
-    it('Should return multiple flags and options sets', function () {
+    it('Should return multiple flags and options sets', () => {
         //  Arrange
         const cmds = [
             getCommand({
                 name: 'cmd',
+                action: () => null,
                 desc: 'Test command',
                 flags: [
                     { name: 'flag1', options: [] },
@@ -88,11 +92,12 @@ describe('Parser', function () {
         expect(flags[1].options[0]).toEqual('options2');
     });
 
-    it('Should return one flag with two options', function () {
+    it('Should return one flag with two options', () => {
         //  Arrange
         const cmds = [
             getCommand({
                 name: 'cmd',
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
@@ -111,11 +116,12 @@ describe('Parser', function () {
         expect(flags[0].options[1]).toEqual('options2=2');
     });
 
-    it('Should throw if no matching command was found', function () {
+    it('Should throw if no matching command was found', () => {
         //  Arrange
         const cmds = [
             getCommand({
                 name: 'cmd',
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
