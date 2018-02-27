@@ -9,7 +9,6 @@ function getParserWithCommandConfig(cmds) {
 function getCommand(opts) {
     return {
         name: opts.name,
-        flags: opts.flags,
         action: opts.action,
         description: opts.desc,
     };

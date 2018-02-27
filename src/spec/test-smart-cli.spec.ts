@@ -17,7 +17,6 @@ describe('SmartCLI', () => {
         const cli = new SmartCLI();
         const command: ICommandOpts = {
             name: 'cmd',
-            flags: [],
             action: () => null,
             description: 'test'
         }
@@ -37,7 +36,6 @@ describe('SmartCLI', () => {
         const cli = new SmartCLI();
         const command: ICommandOpts = {
             name: 'cmd',
-            flags: [],
             action: () => callHasBeenMade = true,
             description: 'test'
         };

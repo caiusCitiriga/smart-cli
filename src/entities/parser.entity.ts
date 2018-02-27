@@ -27,7 +27,6 @@ export class Parser implements IParser {
     public addCommand(cmdOpts: ICommandOpts): void {
         const cmd = new Command();
         cmd.setName(cmdOpts.name);
-        cmd.setFlags(cmdOpts.flags);
         cmd.setAction(cmdOpts.action);
         cmd.setDescription(cmdOpts.description);
 

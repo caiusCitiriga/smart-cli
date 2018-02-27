@@ -9,7 +9,6 @@ function getParserWithCommandConfig(cmds) {
 function getCommand(opts) {
     return {
         name: opts.name,
-        flags: opts.flags,
         action: opts.action,
         description: opts.desc,
     };
@@ -115,4 +114,4 @@ describe('Parser', function () {
         expect(function () { return parser.parse(rawCmd); }).toThrow(noMatchingCommandException);
     });
 });
-//# sourceMappingURL=test-parser.spec.1.js.map
+//# sourceMappingURL=test-parser.spec.js.map
