@@ -3,7 +3,6 @@ import { Command } from "../entities/command.entity";
 import { ICommandOpts } from "../interfaces/command-opts.interface";
 
 describe('SmartCLI', () => {
-
     it('Should initialize SmartCLI', () => {
         //  Arrange
         const cli = new SmartCLI();
@@ -17,6 +16,7 @@ describe('SmartCLI', () => {
         const cli = new SmartCLI();
         const command: ICommandOpts = {
             name: 'cmd',
+            flags: [],
             action: () => null,
             description: 'test'
         }
@@ -36,6 +36,7 @@ describe('SmartCLI', () => {
         const cli = new SmartCLI();
         const command: ICommandOpts = {
             name: 'cmd',
+            flags: [],
             action: () => callHasBeenMade = true,
             description: 'test'
         };

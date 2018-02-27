@@ -14,6 +14,7 @@ function getParserWithCommandConfig(cmds: ICommandOpts[]): IParser {
 
 function getCommand(opts: { name: string, desc: string, flags: IFlag[], action: () => void }): ICommandOpts {
     return {
+        flags: [],
         name: opts.name,
         action: opts.action,
         description: opts.desc,
