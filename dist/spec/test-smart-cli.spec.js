@@ -22,7 +22,7 @@ describe('SmartCLI', function () {
         var userRanCmd = 'cmd';
         var returnedRanCmd = cli.run(userRanCmd);
         //  Act/Assert
-        expect(returnedRanCmd).toEqual("Dispatching " + userRanCmd);
+        expect(returnedRanCmd.getName()).toEqual(userRanCmd);
     });
     it('Should call the action on the matched command', function () {
         //  Arrange

@@ -1,7 +1,9 @@
 import { SmartCLI } from "..";
+
 import { Command } from "../entities/command.entity";
+
+import { IFlag } from "../interfaces/flag.interface";
 import { ICommandOpts } from "../interfaces/command-opts.interface";
-import { IFlag } from "../../dist/interfaces/flag.interface";
 
 describe('SmartCLI', () => {
     it('Should initialize SmartCLI', () => {
@@ -28,7 +30,7 @@ describe('SmartCLI', () => {
         const returnedRanCmd = cli.run(userRanCmd);
 
         //  Act/Assert
-        expect(returnedRanCmd).toEqual(`Dispatching ${userRanCmd}`);
+        expect(returnedRanCmd.getName()).toEqual(userRanCmd);
     });
 
     it('Should call the action on the matched command', () => {
