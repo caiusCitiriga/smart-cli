@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { injectable } from 'inversify';
 
-import { IFlag } from '../interfaces/flag.interface';
-import { ICommand } from '../interfaces/command.interface';
+import { IFlag } from '../interfaces/plain/flag.interface';
+import { ICommand } from '../interfaces/plain/command.interface';
 
 export class Command implements ICommand {
     private _name: string;

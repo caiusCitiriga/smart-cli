@@ -1,4 +1,4 @@
-import { IFlag } from "./flag.interface";
+import { IFlag } from "../plain/flag.interface";
 
 export interface ICommandOpts {
     name: string;

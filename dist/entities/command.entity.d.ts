@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import { IFlag } from '../interfaces/flag.interface';
-import { ICommand } from '../interfaces/command.interface';
+import { IFlag } from '../interfaces/plain/flag.interface';
+import { ICommand } from '../interfaces/plain/command.interface';
 export declare class Command implements ICommand {
     private _name;
     private _flags?;

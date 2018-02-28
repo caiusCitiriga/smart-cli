@@ -2,8 +2,8 @@ import { SmartCLI } from "..";
 
 import { Command } from "../entities/command.entity";
 
-import { IFlag } from "../interfaces/flag.interface";
-import { ICommandOpts } from "../interfaces/command-opts.interface";
+import { IFlag } from "../interfaces/plain/flag.interface";
+import { ICommandOpts } from "../interfaces/opts/command-opts.interface";
 
 describe('SmartCLI', () => {
     it('Should initialize SmartCLI', () => {

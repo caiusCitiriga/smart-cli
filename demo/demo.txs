@@ -8,7 +8,8 @@ cli
         flags: [],
         name: 'cmd1',
         description: 'Test',
-        action: (flags: IFlag[]) => console.log('Called cmd 1! with flags: ' + flags[0].name + ' and opt: ' + flags[0].options[0].name),
+        action: (flags: IFlag[]) =>
+            console.log('Called cmd 1! with flags: ' + flags[0].name + ' and opt: ' + flags[0].options[0].name),
     })
     .addCommand({
         flags: [],

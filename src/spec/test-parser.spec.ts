@@ -1,9 +1,10 @@
+import { IFlag } from '../interfaces/plain/flag.interface';
+import { IParser } from '../interfaces/plain/parser.interface';
+import { ICommand } from '../interfaces/plain/command.interface';
+import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
+
 import { Parser } from '../entities/parser.entity';
-import { IParser } from '../interfaces/parser.interface';
-import { ICommand } from '../interfaces/command.interface';
-import { IFlag } from '../interfaces/flag.interface';
 import { Command } from '../entities/command.entity';
-import { ICommandOpts } from '../interfaces/command-opts.interface';
 
 function getParserWithCommandConfig(cmds: ICommandOpts[]): IParser {
     const parser = new Parser();

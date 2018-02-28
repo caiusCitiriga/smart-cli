@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { IParser } from '../interfaces/parser.interface';
-import { ICommand } from '../interfaces/command.interface';
-import { ICommandOpts } from '../interfaces/command-opts.interface';
+import { IParser } from '../interfaces/plain/parser.interface';
+import { ICommand } from '../interfaces/plain/command.interface';
+import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 export declare class Parser implements IParser {
     private _flagDelimiter;
     private _flagOptionsDelimiter;

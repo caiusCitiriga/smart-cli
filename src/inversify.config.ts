@@ -2,8 +2,8 @@ import { Container } from 'inversify';
 
 import { TYPES } from './consts/types.const';
 
-import { IParser } from './interfaces/parser.interface';
-import { IDispatcher } from './interfaces/dispatcher.interface';
+import { IParser } from './interfaces/plain/parser.interface';
+import { IDispatcher } from './interfaces/plain/dispatcher.interface';
 
 import { Parser } from './entities/parser.entity';
 import { Dispatcher } from './entities/dispatcher.entity';

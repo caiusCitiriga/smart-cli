@@ -3,10 +3,10 @@ import { injectable } from 'inversify';
 
 import { Command } from './command.entity';
 
-import { IFlag, IOption } from '../interfaces/flag.interface';
-import { IParser } from '../interfaces/parser.interface';
-import { ICommand } from '../interfaces/command.interface';
-import { ICommandOpts } from '../interfaces/command-opts.interface';
+import { IParser } from '../interfaces/plain/parser.interface';
+import { ICommand } from '../interfaces/plain/command.interface';
+import { IFlag, IOption } from '../interfaces/plain/flag.interface';
+import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 
 @injectable()
 export class Parser implements IParser {

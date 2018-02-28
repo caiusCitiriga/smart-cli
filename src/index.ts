@@ -1,15 +1,17 @@
 import { TYPES } from './consts/types.const';
 import { IoCContainer } from './inversify.config';
 
-import { IParser } from './interfaces/parser.interface';
-import { ICommand } from './interfaces/command.interface';
-import { IDispatcher } from './interfaces/dispatcher.interface';
-import { ICommandOpts } from './interfaces/command-opts.interface';
+import { IParser } from './interfaces/plain/parser.interface';
+import { ICommand } from './interfaces/plain/command.interface';
+import { IDispatcher } from './interfaces/plain/dispatcher.interface';
+import { ICommandOpts } from './interfaces/opts/command-opts.interface';
 
 export class SmartCLI {
     private _parser: IParser;
     private _dispatcher: IDispatcher;
     private _commands: ICommandOpts[];
+    private _ui
+    public ge
 
     public constructor() {
         this._commands = [];
