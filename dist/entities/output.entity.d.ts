@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { IOutput } from '../interfaces/plain/output.interface';
 import { ITableOpts } from '../interfaces/opts/table-opts.interface';
 import { IKeyValuesOpts } from '../interfaces/opts/key-values-opts.interface';

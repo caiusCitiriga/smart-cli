@@ -1,6 +1,14 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+require("reflect-metadata");
 var Chalk = require("chalk");
+var inversify_1 = require("inversify");
 var table_delimiters_const_1 = require("../consts/table-delimiters.const");
 var Output = (function () {
     function Output() {
@@ -266,7 +274,10 @@ var Output = (function () {
             .forEach(function (rowSet) { return rowSet
             .forEach(function (rowValue) { return _this.longestCellWidth = rowValue.length > _this.longestCellWidth ? rowValue.length : _this.longestCellWidth; }); });
     };
+    Output = __decorate([
+        inversify_1.injectable()
+    ], Output);
     return Output;
 }());
 exports.Output = Output;
-//# sourceMappingURL=output.lib.js.map
+//# sourceMappingURL=output.entity.js.map

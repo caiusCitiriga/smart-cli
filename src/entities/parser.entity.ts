@@ -40,13 +40,13 @@ export class Parser implements IParser {
     public getCommand(opts: IGetCommandOpts): IGetCommandResult {
         if (opts.single) {
             return {
-                cmd: this._availableCommands.find(cmd => cmd.getName() === opts.cmdName),
+                cmd: this._availableCommands.find(cmd => cmd.getName() === opts.cmdName) || null,
                 commands: null
             }
         }
         return {
             cmd: null,
-            commands: this._availableCommands
+            commands: this._availableCommands || []
         };
     }
 

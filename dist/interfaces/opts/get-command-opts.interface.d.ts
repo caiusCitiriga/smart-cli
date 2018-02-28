@@ -1,4 +1,4 @@
 export interface IGetCommandOpts {
     single: boolean;
-    cmdName: string;
+    cmdName?: string | undefined;
 }

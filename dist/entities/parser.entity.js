@@ -31,13 +31,13 @@ var Parser = (function () {
     Parser.prototype.getCommand = function (opts) {
         if (opts.single) {
             return {
-                cmd: this._availableCommands.find(function (cmd) { return cmd.getName() === opts.cmdName; }),
+                cmd: this._availableCommands.find(function (cmd) { return cmd.getName() === opts.cmdName; }) || null,
                 commands: null
             };
         }
         return {
             cmd: null,
-            commands: this._availableCommands
+            commands: this._availableCommands || []
         };
     };
     Parser.prototype.parse = function (rawInput) {

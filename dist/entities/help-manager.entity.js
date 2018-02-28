@@ -13,8 +13,32 @@ require("reflect-metadata");
 var inversify_1 = require("inversify");
 var HelpManager = (function () {
     function HelpManager() {
+        this._commands = [];
     }
+    HelpManager.prototype.addCommands = function (commands) {
+        this._commands = commands;
+    };
     HelpManager.prototype.help = function (flags) {
+        // this._commands.forEach(cmd => {
+        // });
+        console.log('Helping!');
+    };
+    HelpManager.prototype.getHelpCommandOpts = function () {
+        var _this = this;
+        if (!this._commands) {
+            var CommandsNotSetException = new Error();
+            CommandsNotSetException.name = 'CommandsNotSetException';
+            CommandsNotSetException.message = 'The commands are not set in the HelpManager. Set them before generating the help CommandOpts';
+            throw CommandsNotSetException;
+        }
+        var helpCmdOpts = {
+            flags: [],
+            name: 'help',
+            description: 'Shows informations about the available commands, and their usage',
+            action: function (flags) { return _this.help(flags[0]); },
+        };
+        this._commands.forEach(function (cmd) { return helpCmdOpts.flags.push({ name: cmd.getName(), description: '', options: [] }); });
+        return helpCmdOpts;
     };
     HelpManager = __decorate([
         inversify_1.injectable(),

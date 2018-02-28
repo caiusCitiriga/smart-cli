@@ -1,4 +1,6 @@
+import 'reflect-metadata';
 import * as Chalk from 'chalk';
+import { injectable } from 'inversify';
 
 import { TableDelimiters } from '../consts/table-delimiters.const';
 
@@ -6,6 +8,7 @@ import { IOutput } from '../interfaces/plain/output.interface';
 import { ITableOpts } from '../interfaces/opts/table-opts.interface';
 import { IKeyValuesOpts } from '../interfaces/opts/key-values-opts.interface';
 
+@injectable()
 export class Output implements IOutput {
     /**
      * This will be the reference for the min width of the cells
