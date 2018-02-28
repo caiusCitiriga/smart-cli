@@ -6,8 +6,8 @@ import { IDispatcher } from '../interfaces/dispatcher.interface';
 
 @injectable()
 export class Dispatcher implements IDispatcher {
-    public dispatch(cmd: ICommand): string {
-        cmd.run();
-        return `Dispatching ${cmd.getName()}`;
+    public dispatch(cmd: ICommand): ICommand {
+        cmd.run(cmd.getFlags());
+        return cmd;
     }
 }

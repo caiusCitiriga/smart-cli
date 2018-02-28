@@ -1,5 +1,5 @@
 import { ICommand } from './command.interface';
 
 export interface IDispatcher {
-    dispatch(cmd: ICommand): string;
+    dispatch(cmd: ICommand): ICommand;
 }

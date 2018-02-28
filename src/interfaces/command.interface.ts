@@ -1,7 +1,7 @@
 import { IFlag } from "./flag.interface";
 
 export interface ICommand {
-    run(): void;
+    run(flags: IFlag[]): void;
     getName(): string;
     getDescription(): string;
     getFlags(): IFlag[] | undefined;

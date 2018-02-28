@@ -7,7 +7,7 @@ import { ICommand } from '../interfaces/command.interface';
 export class Command implements ICommand {
     private _name: string;
     private _flags?: IFlag[];
-    private _action: () => any;
+    private _action: (flags: IFlag[]) => any;
     private _description: string;
 
     public getName(): string { return this._name; }
@@ -16,10 +16,10 @@ export class Command implements ICommand {
 
     public setName(name: string): void { this._name = name; }
     public setFlags(flags: IFlag[]): void { this._flags = flags; }
-    public setAction(func: () => void): void { this._action = func; }
+    public setAction(func: (flags: IFlag[]) => void): void { this._action = func; }
     public setDescription(desc: string): void { this._description = desc; }
 
-    public run(): void {
-        this._action();
+    public run(flags: IFlag[]): void {
+        this._action(flags);
     }
 }

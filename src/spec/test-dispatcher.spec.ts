@@ -29,6 +29,6 @@ describe('Dispatcher', function () {
         const result = dispatcher.dispatch(command);
 
         //  Assert
-        expect(result).toBe(`Dispatching ${command.getName()}`);
+        expect(result.getName()).toBe(`cmd`);
     });
 });

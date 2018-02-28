@@ -22,7 +22,7 @@ export class SmartCLI {
         return this;
     }
 
-    public run(rawUserInput: string): string {
+    public run(rawUserInput: string): ICommand {
         this._commands.forEach(cmd => this._parser.addCommand(cmd));
         return this._dispatcher.dispatch(this._parser.parse(rawUserInput));
     }
