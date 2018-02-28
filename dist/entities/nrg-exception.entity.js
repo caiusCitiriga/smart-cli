@@ -3,6 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var NRGException = (function () {
     function NRGException() {
     }
+    NRGException.prototype.get = function (opts) {
+        var exception = new Error();
+        exception.name = opts.name;
+        exception.message = opts.message;
+        return exception;
+    };
     NRGException.prototype.throw = function (opts) {
         var exception = new Error();
         exception.name = opts.name;

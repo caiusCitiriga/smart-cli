@@ -18,23 +18,24 @@ var HelpManager = (function () {
     function HelpManager() {
         this._commands = [];
     }
-    HelpManager.prototype.addCommands = function (commands) {
+    HelpManager.prototype.setCommands = function (commands) {
         this._commands = commands;
     };
     HelpManager.prototype.help = function (flag) {
+        if (!this._commands.filter(function (cmd) { return cmd.getName() !== 'help'; }).length) {
+            new nrg_exception_entity_1.NRGException().throw({
+                name: exceptions_conts_1.NRG_EXCEPTIONS.CommandsNotSetException.name,
+                message: exceptions_conts_1.NRG_EXCEPTIONS.CommandsNotSetException.message()
+            });
+        }
         if (!flag) {
             this.printGeneralHelp();
+            return;
         }
         this.printSpecificHelp(flag);
     };
     HelpManager.prototype.getHelpCommandOpts = function () {
         var _this = this;
-        if (!this._commands) {
-            var CommandsNotSetException = new Error();
-            CommandsNotSetException.name = 'CommandsNotSetException';
-            CommandsNotSetException.message = 'The commands are not set in the HelpManager. Set them before generating the help CommandOpts';
-            throw CommandsNotSetException;
-        }
         var helpCmdOpts = {
             flags: [],
             name: 'help',

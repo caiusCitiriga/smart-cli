@@ -1,5 +1,6 @@
 import { INrgExceptionOpts } from "../opts/nrg-exception-opts.interface";
 
 export interface INrgException {
-    throw(opts: INrgExceptionOpts): Error;
+    get(opts: INrgExceptionOpts): Error;
+    throw(opts: INrgExceptionOpts): void;
 }

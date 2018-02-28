@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var parser_entity_1 = require("../entities/parser.entity");
+var nrg_exception_entity_1 = require("../entities/nrg-exception.entity");
+var exceptions_conts_1 = require("../consts/exceptions.conts");
 function getParserWithCommandConfig(cmds) {
     var parser = new parser_entity_1.Parser();
     cmds.forEach(function (cmd) { return parser.addCommand(cmd); });
@@ -107,11 +109,12 @@ describe('Parser', function () {
         var rawCmd = 'this-cmd-does-not-exists';
         var parser = getParserWithCommandConfig(cmds);
         //  Prepare the command that should be thrown
-        var noMatchingCommandException = new Error();
-        noMatchingCommandException.name = 'NoMatchingCommand';
-        noMatchingCommandException.message = "No matching command was found for " + rawCmd;
+        var NoMatchingCommandException = new nrg_exception_entity_1.NRGException().get({
+            name: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.name,
+            message: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.message(rawCmd),
+        });
         //  Act/Assert
-        expect(function () { return parser.parse(rawCmd); }).toThrow(noMatchingCommandException);
+        expect(function () { return parser.parse(rawCmd); }).toThrow(NoMatchingCommandException);
     });
     it('Should separate the options by name and value correctly', function () {
         //  Arrange

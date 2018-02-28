@@ -3,4 +3,12 @@ export declare const NRG_EXCEPTIONS: {
         name: string;
         message: (cmdName: string) => string;
     };
+    CommandsNotSetException: {
+        name: string;
+        message: () => string;
+    };
+    NoMatchingCommandException: {
+        name: string;
+        message: (cmdName: string) => string;
+    };
 };

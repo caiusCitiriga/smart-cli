@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var inversify_1 = require("inversify");
 var command_entity_1 = require("./command.entity");
+var exceptions_conts_1 = require("../consts/exceptions.conts");
+var nrg_exception_entity_1 = require("./nrg-exception.entity");
 var Parser = (function () {
     function Parser() {
         //  Sugar
@@ -45,10 +47,10 @@ var Parser = (function () {
         var commandName = this.extractCommandName(rawInput);
         var matchingCommand = this._availableCommands.find(function (c) { return c.getName() === commandName; });
         if (!matchingCommand) {
-            var noMatchingCommandException = new Error();
-            noMatchingCommandException.name = 'NoMatchingCommand';
-            noMatchingCommandException.message = "No matching command was found for " + commandName;
-            throw noMatchingCommandException;
+            new nrg_exception_entity_1.NRGException().throw({
+                name: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.name,
+                message: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.message(commandName)
+            });
         }
         matchingCommand.setFlags(flags);
         return matchingCommand;

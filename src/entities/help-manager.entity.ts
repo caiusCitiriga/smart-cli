@@ -20,26 +20,26 @@ export class HelpManager implements IHelpManager {
         this._commands = [];
     }
 
-    public addCommands(commands: ICommand[]): void {
+    public setCommands(commands: ICommand[]): void {
         this._commands = commands;
     }
 
     public help(flag: IFlag): void {
+        if (!this._commands.filter(cmd => cmd.getName() !== 'help').length) {
+            new NRGException().throw({
+                name: NRG_EXCEPTIONS.CommandsNotSetException.name,
+                message: NRG_EXCEPTIONS.CommandsNotSetException.message()
+            });
+        }
+
         if (!flag) {
             this.printGeneralHelp();
+            return;
         }
         this.printSpecificHelp(flag);
     }
 
     public getHelpCommandOpts(): ICommandOpts {
-        if (!this._commands) {
-            const CommandsNotSetException = new Error();
-            CommandsNotSetException.name = 'CommandsNotSetException';
-            CommandsNotSetException.message = 'The commands are not set in the HelpManager. Set them before generating the help CommandOpts';
-
-            throw CommandsNotSetException;
-        }
-
         const helpCmdOpts: ICommandOpts = {
             flags: [],
             name: 'help',

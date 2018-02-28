@@ -30,7 +30,7 @@ export class SmartCLI {
     public run(rawUserInput: string): ICommand {
         this._commands.forEach(cmd => this._parser.addCommand(cmd));
 
-        this._helpManager.addCommands(this._parser.getCommand({ single: false }).commands);
+        this._helpManager.setCommands(this._parser.getCommand({ single: false }).commands);
         this._parser.addCommand(this._helpManager.getHelpCommandOpts());
 
         return this._dispatcher.dispatch(this._parser.parse(rawUserInput));

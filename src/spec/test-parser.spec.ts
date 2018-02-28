@@ -5,6 +5,8 @@ import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 
 import { Parser } from '../entities/parser.entity';
 import { Command } from '../entities/command.entity';
+import { NRGException } from '../entities/nrg-exception.entity';
+import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
 
 function getParserWithCommandConfig(cmds: ICommandOpts[]): IParser {
     const parser = new Parser();
@@ -130,12 +132,13 @@ describe('Parser', function () {
         const parser = getParserWithCommandConfig(cmds);
 
         //  Prepare the command that should be thrown
-        const noMatchingCommandException = new Error();
-        noMatchingCommandException.name = 'NoMatchingCommand';
-        noMatchingCommandException.message = `No matching command was found for ${rawCmd}`;
+        const NoMatchingCommandException = new NRGException().get({
+            name: NRG_EXCEPTIONS.NoMatchingCommandException.name,
+            message: NRG_EXCEPTIONS.NoMatchingCommandException.message(rawCmd),
+        });
 
         //  Act/Assert
-        expect(() => parser.parse(rawCmd)).toThrow(noMatchingCommandException);
+        expect(() => parser.parse(rawCmd)).toThrow(NoMatchingCommandException);
     });
 
     it('Should separate the options by name and value correctly', () => {

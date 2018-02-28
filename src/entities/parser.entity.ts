@@ -9,6 +9,8 @@ import { IFlag, IOption } from '../interfaces/plain/flag.interface';
 import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 import { IGetCommandOpts } from '../interfaces/opts/get-command-opts.interface';
 import { IGetCommandResult } from '../interfaces/results/get-command-result.interface';
+import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
+import { NRGException } from './nrg-exception.entity';
 
 @injectable()
 export class Parser implements IParser {
@@ -56,11 +58,10 @@ export class Parser implements IParser {
         const matchingCommand = this._availableCommands.find(c => c.getName() === commandName);
 
         if (!matchingCommand) {
-            const noMatchingCommandException = new Error();
-            noMatchingCommandException.name = 'NoMatchingCommand';
-            noMatchingCommandException.message = `No matching command was found for ${commandName}`;
-
-            throw noMatchingCommandException;
+            new NRGException().throw({
+                name: NRG_EXCEPTIONS.NoMatchingCommandException.name,
+                message: NRG_EXCEPTIONS.NoMatchingCommandException.message(commandName)
+            });
         }
 
         matchingCommand.setFlags(flags);

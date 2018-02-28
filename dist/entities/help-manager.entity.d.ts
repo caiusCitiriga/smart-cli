@@ -7,7 +7,7 @@ export declare class HelpManager implements IHelpManager {
     private _commands;
     private _output;
     constructor();
-    addCommands(commands: ICommand[]): void;
+    setCommands(commands: ICommand[]): void;
     help(flag: IFlag): void;
     getHelpCommandOpts(): ICommandOpts;
     private printGeneralHelp();
