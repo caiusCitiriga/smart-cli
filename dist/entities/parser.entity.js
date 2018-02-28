@@ -28,6 +28,18 @@ var Parser = (function () {
         cmd.setDescription(cmdOpts.description);
         this._availableCommands.push(cmd);
     };
+    Parser.prototype.getCommand = function (opts) {
+        if (opts.single) {
+            return {
+                cmd: this._availableCommands.find(function (cmd) { return cmd.getName() === opts.cmdName; }),
+                commands: null
+            };
+        }
+        return {
+            cmd: null,
+            commands: this._availableCommands
+        };
+    };
     Parser.prototype.parse = function (rawInput) {
         var flags = this.extractFlags(rawInput);
         var commandName = this.extractCommandName(rawInput);

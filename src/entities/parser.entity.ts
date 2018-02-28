@@ -7,6 +7,8 @@ import { IParser } from '../interfaces/plain/parser.interface';
 import { ICommand } from '../interfaces/plain/command.interface';
 import { IFlag, IOption } from '../interfaces/plain/flag.interface';
 import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
+import { IGetCommandOpts } from '../interfaces/opts/get-command-opts.interface';
+import { IGetCommandResult } from '../interfaces/results/get-command-result.interface';
 
 @injectable()
 export class Parser implements IParser {
@@ -33,6 +35,19 @@ export class Parser implements IParser {
         cmd.setDescription(cmdOpts.description);
 
         this._availableCommands.push(cmd);
+    }
+
+    public getCommand(opts: IGetCommandOpts): IGetCommandResult {
+        if (opts.single) {
+            return {
+                cmd: this._availableCommands.find(cmd => cmd.getName() === opts.cmdName),
+                commands: null
+            }
+        }
+        return {
+            cmd: null,
+            commands: this._availableCommands
+        };
     }
 
     public parse(rawInput: string): ICommand {
