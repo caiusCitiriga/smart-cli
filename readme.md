@@ -1,4 +1,6 @@
 # SmartCLI
+[![Build Status](https://travis-ci.org/caiusCitiriga/smart-cli.svg?branch=1.0.0)](https://travis-ci.org/caiusCitiriga/smart-cli)
+
 A library for node terminal applications that helps you dealing with the user's input and helps you with a tool of standard ouput formats. Like titles, subtitles, boxed titles. Info, warning and error messages, table and key-value pairs data presentation.
 
 ## Getting Started
