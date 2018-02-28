@@ -9,5 +9,5 @@ cli
     action: function () { return null; },
     description: 'Test command',
 })
-    .run('help');
+    .run('help --yolo');
 //# sourceMappingURL=demo.js.map

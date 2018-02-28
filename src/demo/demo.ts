@@ -8,4 +8,4 @@ cli
         action: () => null,
         description: 'Test command',
     })
-    .run('help');
+    .run('help --yolo');

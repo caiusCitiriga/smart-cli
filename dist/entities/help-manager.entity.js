@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 var inversify_1 = require("inversify");
+var types_const_1 = require("../consts/types.const");
+var nrg_exception_entity_1 = require("./nrg-exception.entity");
+var exceptions_conts_1 = require("../consts/exceptions.conts");
 var HelpManager = (function () {
     function HelpManager() {
         this._commands = [];
@@ -18,10 +21,11 @@ var HelpManager = (function () {
     HelpManager.prototype.addCommands = function (commands) {
         this._commands = commands;
     };
-    HelpManager.prototype.help = function (flags) {
-        // this._commands.forEach(cmd => {
-        // });
-        console.log('Helping!');
+    HelpManager.prototype.help = function (flag) {
+        if (!flag) {
+            this.printGeneralHelp();
+        }
+        this.printSpecificHelp(flag);
     };
     HelpManager.prototype.getHelpCommandOpts = function () {
         var _this = this;
@@ -40,6 +44,26 @@ var HelpManager = (function () {
         this._commands.forEach(function (cmd) { return helpCmdOpts.flags.push({ name: cmd.getName(), description: '', options: [] }); });
         return helpCmdOpts;
     };
+    HelpManager.prototype.printGeneralHelp = function () {
+        var kvpOpts = {
+            set: []
+        };
+        this._commands.forEach(function (cmd) { return kvpOpts.set.push({ k: cmd.getName(), v: cmd.getDescription() }); });
+        this._output.printKeyValues(kvpOpts);
+    };
+    HelpManager.prototype.printSpecificHelp = function (flag) {
+        if (!this._commands.find(function (cmd) { return cmd.getName() === flag.name; })) {
+            new nrg_exception_entity_1.NRGException()
+                .throw({
+                name: exceptions_conts_1.NRG_EXCEPTIONS.CommandNotFoundException.name,
+                message: exceptions_conts_1.NRG_EXCEPTIONS.CommandNotFoundException.message(flag.name)
+            });
+        }
+    };
+    __decorate([
+        inversify_1.inject(types_const_1.TYPES.IOutput),
+        __metadata("design:type", Object)
+    ], HelpManager.prototype, "_output", void 0);
     HelpManager = __decorate([
         inversify_1.injectable(),
         __metadata("design:paramtypes", [])
