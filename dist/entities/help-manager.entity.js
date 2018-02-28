@@ -50,7 +50,11 @@ var HelpManager = (function () {
             set: []
         };
         this._commands.forEach(function (cmd) { return kvpOpts.set.push({ k: cmd.getName(), v: cmd.getDescription() }); });
+        console.log();
+        this._output.printBoxTitle('General help');
+        console.log();
         this._output.printKeyValues(kvpOpts);
+        console.log();
     };
     HelpManager.prototype.printSpecificHelp = function (flag) {
         if (!this._commands.find(function (cmd) { return cmd.getName() === flag.name; })) {
@@ -60,6 +64,21 @@ var HelpManager = (function () {
                 message: exceptions_conts_1.NRG_EXCEPTIONS.CommandNotFoundException.message(flag.name)
             });
         }
+        var kvSet = {
+            set: []
+        };
+        var flags = this._commands
+            .find(function (cmd) { return cmd.getName() === flag.name; })
+            .getFlags() || [];
+        flags.forEach(function (flag) {
+            kvSet.set.push({ k: flag.name, v: flag.description });
+        });
+        console.log();
+        this._output.printTitle(flag.name + " help");
+        this._output.printSubtitle(this._commands.find(function (cmd) { return cmd.getName() === flag.name; }).getDescription());
+        console.log();
+        this._output.printKeyValues(kvSet);
+        console.log();
     };
     __decorate([
         inversify_1.inject(types_const_1.TYPES.IOutput),

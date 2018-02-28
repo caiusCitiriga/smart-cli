@@ -86,6 +86,7 @@ export class Output implements IOutput {
     }
 
     public printKeyValues(opts: IKeyValuesOpts) {
+        if (!opts.set.length) { return; }
         let longestKeyLen = opts.set[0].k.length;
         opts.set.forEach(s => longestKeyLen = s.k.length > longestKeyLen ? s.k.length : longestKeyLen);
 

@@ -36,6 +36,7 @@ export class HelpManager implements IHelpManager {
             this.printGeneralHelp();
             return;
         }
+
         this.printSpecificHelp(flag);
     }
 
@@ -56,7 +57,12 @@ export class HelpManager implements IHelpManager {
             set: []
         };
         this._commands.forEach(cmd => kvpOpts.set.push({ k: cmd.getName(), v: cmd.getDescription() }));
+
+        console.log();
+        this._output.printBoxTitle('General help');
+        console.log();
         this._output.printKeyValues(kvpOpts);
+        console.log();
     }
 
     private printSpecificHelp(flag: IFlag): void {
@@ -67,5 +73,24 @@ export class HelpManager implements IHelpManager {
                     message: NRG_EXCEPTIONS.CommandNotFoundException.message(flag.name)
                 });
         }
+
+        const kvSet: IKeyValuesOpts = {
+            set: []
+        };
+
+        const flags = this._commands
+            .find(cmd => cmd.getName() === flag.name)
+            .getFlags() || [];
+
+        flags.forEach(flag => {
+            kvSet.set.push({ k: flag.name, v: flag.description })
+        });
+
+        console.log();
+        this._output.printTitle(`${flag.name} help`);
+        this._output.printSubtitle(this._commands.find(cmd => cmd.getName() === flag.name).getDescription());
+        console.log();
+        this._output.printKeyValues(kvSet);
+        console.log();
     }
 }

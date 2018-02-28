@@ -73,6 +73,9 @@ var Output = (function () {
         console.log(Chalk.magenta(title.toUpperCase()));
     };
     Output.prototype.printKeyValues = function (opts) {
+        if (!opts.set.length) {
+            return;
+        }
         var longestKeyLen = opts.set[0].k.length;
         opts.set.forEach(function (s) { return longestKeyLen = s.k.length > longestKeyLen ? s.k.length : longestKeyLen; });
         opts.spacerChar = opts.spacerChar && opts.spacerChar.length ? opts.spacerChar : ' ';

@@ -26,6 +26,7 @@ var Parser = (function () {
     Parser.prototype.addCommand = function (cmdOpts) {
         var cmd = new command_entity_1.Command();
         cmd.setName(cmdOpts.name);
+        cmd.setFlags(cmdOpts.flags);
         cmd.setAction(cmdOpts.action);
         cmd.setDescription(cmdOpts.description);
         this._availableCommands.push(cmd);
