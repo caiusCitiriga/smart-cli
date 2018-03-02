@@ -110,6 +110,7 @@ export class Parser implements IParser {
         return flags;
     }
 
+    //  TODO: test in spec
     private isDirectValue(rawInput: string): boolean {
 
         const directValueRegex = new RegExp('--(\\w*=\\w*)'); //  matches "--anyname=value"
@@ -136,6 +137,6 @@ export class Parser implements IParser {
     }
 
     private extractDirectValueFromFlags(rawInput: string): IFlag[] {
-        return;
+        throw new Error('Not implemented');
     }
 }

@@ -89,6 +89,7 @@ let Parser = class Parser {
         });
         return flags;
     }
+    //  TODO: test in spec
     isDirectValue(rawInput) {
         const directValueRegex = new RegExp('--(\\w*=\\w*)'); //  matches "--anyname=value"
         const complexValueRegex = new RegExp('--(\\w*:\\w*=\\w*)'); //  matches "--anyname:key=value"
@@ -110,7 +111,7 @@ let Parser = class Parser {
         });
     }
     extractDirectValueFromFlags(rawInput) {
-        return;
+        throw new Error('Not implemented');
     }
 };
 Parser = __decorate([
