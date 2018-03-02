@@ -1,63 +1,63 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var parser_entity_1 = require("../entities/parser.entity");
-var nrg_exception_entity_1 = require("../entities/nrg-exception.entity");
-var exceptions_conts_1 = require("../consts/exceptions.conts");
+const parser_entity_1 = require("../entities/parser.entity");
+const nrg_exception_entity_1 = require("../entities/nrg-exception.entity");
+const exceptions_conts_1 = require("../consts/exceptions.conts");
 function getParserWithCommandConfig(cmds) {
-    var parser = new parser_entity_1.Parser();
-    cmds.forEach(function (cmd) { return parser.addCommand(cmd); });
+    const parser = new parser_entity_1.Parser();
+    cmds.forEach(cmd => parser.addCommand(cmd));
     return parser;
 }
 function getCommand(opts) {
     return {
-        flags: [],
+        flags: opts.flags,
         name: opts.name,
         action: opts.action,
         description: opts.desc,
     };
 }
 describe('Parser', function () {
-    it('Should return the command name parsed correctly', function () {
+    it('Should return the command name parsed correctly', () => {
         //  Arrange
-        var cmds = [
+        const cmds = [
             getCommand({
                 name: 'cmd',
                 desc: 'Test command',
-                action: function () { return null; },
+                action: () => null,
                 flags: [{ name: 'flag', options: [] }]
             })
         ];
-        var rawCmd = 'cmd --flag:option';
-        var parser = getParserWithCommandConfig(cmds);
+        const rawCmd = 'cmd --flag:option';
+        const parser = getParserWithCommandConfig(cmds);
         //  Act
-        var parsedCmd = parser.parse(rawCmd);
+        const parsedCmd = parser.parse(rawCmd);
         //  Assert
         expect(parsedCmd.getName()).toBe('cmd');
     });
-    it('Should return the flag and the option parsed correctly', function () {
+    it('Should return the flag and the option parsed correctly', () => {
         //  Arrange
-        var cmds = [
+        const cmds = [
             getCommand({
                 name: 'cmd',
-                action: function () { return null; },
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag', options: [] }]
             })
         ];
-        var rawCmd = 'cmd --flag:options';
-        var parser = getParserWithCommandConfig(cmds);
+        const rawCmd = 'cmd --flag:options';
+        const parser = getParserWithCommandConfig(cmds);
         //  Act
-        var parsedCmd = parser.parse(rawCmd);
+        const parsedCmd = parser.parse(rawCmd);
         //  Assert
         expect(parsedCmd.getFlags()[0].name).toEqual('flag');
         expect(parsedCmd.getFlags()[0].options[0].name).toEqual('options');
     });
-    it('Should return multiple flags and options sets', function () {
+    it('Should return multiple flags and options sets', () => {
         //  Arrange
-        var cmds = [
+        const cmds = [
             getCommand({
                 name: 'cmd',
-                action: function () { return null; },
+                action: () => null,
                 desc: 'Test command',
                 flags: [
                     { name: 'flag1', options: [] },
@@ -65,71 +65,91 @@ describe('Parser', function () {
                 ]
             })
         ];
-        var rawCmd = 'cmd --flag1:options1 --flag2:options2';
-        var parser = getParserWithCommandConfig(cmds);
+        const rawCmd = 'cmd --flag1:options1 --flag2:options2';
+        const parser = getParserWithCommandConfig(cmds);
         //  Act
-        var parsedCmd = parser.parse(rawCmd);
-        var flags = parsedCmd.getFlags();
+        const parsedCmd = parser.parse(rawCmd);
+        const flags = parsedCmd.getFlags();
         //  Assert
         expect(flags[0].name).toEqual('flag1');
         expect(flags[1].name).toEqual('flag2');
         expect(flags[0].options[0].name).toEqual('options1');
         expect(flags[1].options[0].name).toEqual('options2');
     });
-    it('Should return one flag with two options', function () {
+    it('Should return one flag with two options', () => {
         //  Arrange
-        var cmds = [
+        const cmds = [
             getCommand({
                 name: 'cmd',
-                action: function () { return null; },
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
         ];
-        var rawCmd = 'cmd --flag1:options1=1:options2=2';
-        var parser = getParserWithCommandConfig(cmds);
+        const rawCmd = 'cmd --flag1:options1=1:options2=2';
+        const parser = getParserWithCommandConfig(cmds);
         //  Act
-        var parsedCmd = parser.parse(rawCmd);
-        var flags = parsedCmd.getFlags();
+        const parsedCmd = parser.parse(rawCmd);
+        const flags = parsedCmd.getFlags();
         //  Assert
         expect(flags[0].name).toEqual('flag1');
         expect(flags[0].options[0].name).toEqual('options1');
         expect(flags[0].options[1].name).toEqual('options2');
     });
-    it('Should throw if no matching command was found', function () {
+    it('Should return the value into the options, with the name as the flag and the value passed by the user by "="', () => {
         //  Arrange
-        var cmds = [
+        const cmds = [
+            getCommand({
+                name: 'echo',
+                action: () => null,
+                desc: 'Test command',
+                flags: [{ name: 'm', options: null }]
+            })
+        ];
+        const rawCmd = 'echo --m=My test message';
+        const parser = getParserWithCommandConfig(cmds);
+        //  Act
+        const parsedCmd = parser.parse(rawCmd);
+        const flags = parsedCmd.getFlags();
+        //  Assert
+        expect(flags[0].name).toEqual('m');
+        expect(flags[0].options[0].name).toEqual('m');
+        expect(flags[0].options[0].value).toEqual('My test message');
+    });
+    it('Should throw if no matching command was found', () => {
+        //  Arrange
+        const cmds = [
             getCommand({
                 name: 'cmd',
-                action: function () { return null; },
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
         ];
-        var rawCmd = 'this-cmd-does-not-exists';
-        var parser = getParserWithCommandConfig(cmds);
+        const rawCmd = 'this-cmd-does-not-exists';
+        const parser = getParserWithCommandConfig(cmds);
         //  Prepare the command that should be thrown
-        var NoMatchingCommandException = new nrg_exception_entity_1.NRGException().get({
+        const NoMatchingCommandException = new nrg_exception_entity_1.NRGException().get({
             name: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.name,
             message: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.message(rawCmd),
         });
         //  Act/Assert
-        expect(function () { return parser.parse(rawCmd); }).toThrow(NoMatchingCommandException);
+        expect(() => parser.parse(rawCmd)).toThrow(NoMatchingCommandException);
     });
-    it('Should separate the options by name and value correctly', function () {
+    it('Should separate the options by name and value correctly', () => {
         //  Arrange
-        var cmds = [
+        const cmds = [
             getCommand({
                 name: 'cmd',
-                action: function () { return null; },
+                action: () => null,
                 desc: 'Test command',
                 flags: [{ name: 'flag1', options: [] }]
             })
         ];
-        var rawCmd = 'cmd --flag1:opt1=value1';
-        var parser = getParserWithCommandConfig(cmds);
+        const rawCmd = 'cmd --flag1:opt1=value1';
+        const parser = getParserWithCommandConfig(cmds);
         //  Act/Assert
-        var returnedCommand = parser.parse(rawCmd);
+        const returnedCommand = parser.parse(rawCmd);
         expect(returnedCommand.getFlags()[0].name).toBe('flag1');
         expect(returnedCommand.getFlags()[0].options[0].name).toBe('opt1');
         expect(returnedCommand.getFlags()[0].options[0].value).toBe('value1');

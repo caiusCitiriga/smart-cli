@@ -17,7 +17,7 @@ function getParserWithCommandConfig(cmds: ICommandOpts[]): IParser {
 
 function getCommand(opts: { name: string, desc: string, flags: IFlag[], action: () => void }): ICommandOpts {
     return {
-        flags: [],
+        flags: opts.flags,
         name: opts.name,
         action: opts.action,
         description: opts.desc,
@@ -116,6 +116,30 @@ describe('Parser', function () {
 
         expect(flags[0].options[0].name).toEqual('options1');
         expect(flags[0].options[1].name).toEqual('options2');
+    });
+
+    it('Should return the value into the options, with the name as the flag and the value passed by the user by "="', () => {
+        //  Arrange
+        const cmds = [
+            getCommand({
+                name: 'echo',
+                action: () => null,
+                desc: 'Test command',
+                flags: [{ name: 'm', options: null }]
+            })
+        ];
+        const rawCmd = 'echo --m=My test message';
+        const parser = getParserWithCommandConfig(cmds);
+
+        //  Act
+        const parsedCmd = parser.parse(rawCmd);
+        const flags = parsedCmd.getFlags();
+
+        //  Assert
+        expect(flags[0].name).toEqual('m');
+
+        expect(flags[0].options[0].name).toEqual('m');
+        expect(flags[0].options[0].value).toEqual('My test message');
     });
 
     it('Should throw if no matching command was found', () => {

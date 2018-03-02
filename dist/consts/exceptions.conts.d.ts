@@ -11,4 +11,12 @@ export declare const NRG_EXCEPTIONS: {
         name: string;
         message: (cmdName: string) => string;
     };
+    MixedCommandsValueTypesException: {
+        name: string;
+        message: () => string;
+    };
+    InvalidValueException: {
+        name: string;
+        message: () => string;
+    };
 };

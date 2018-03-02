@@ -16,5 +16,17 @@ export const NRG_EXCEPTIONS = {
         message: (cmdName: string) => {
             return `No matching command was found for ${cmdName}`;
         }
+    },
+    MixedCommandsValueTypesException: {
+        name: 'MixedCommandsValueTypesException',
+        message: () => {
+            return `The combination of direct values to flags and flags with options is not supported`;
+        }
+    },
+    InvalidValueException: {
+        name: 'InvalidValueException',
+        message: () => {
+            return `The value passed to the flag is not parsable. Check your syntax.`;
+        }
     }
 }

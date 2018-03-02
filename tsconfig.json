@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
         "types": [
-            "reflect-metadata",
-            "jasmine"
+            "node",
+            "jasmine",
+            "reflect-metadata"
         ],
         "rootDir": "src",
         "outDir": "dist",

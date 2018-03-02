@@ -16,6 +16,7 @@ import { NRGException } from './nrg-exception.entity';
 export class Parser implements IParser {
     private _flagDelimiter: string;
     private _flagOptionsDelimiter: string;
+    private _flagDirectValueDelimiter: string;
     private _flagOptionValueDelimiter: string;
 
     private _availableCommands: ICommand[];
@@ -25,6 +26,7 @@ export class Parser implements IParser {
         this._flagDelimiter = '--';
         this._flagOptionsDelimiter = ':';
         this._flagOptionValueDelimiter = '=';
+        this._flagDirectValueDelimiter = '=';
 
         //  Configurations
         this._availableCommands = [];
@@ -73,8 +75,13 @@ export class Parser implements IParser {
     }
 
     private extractFlags(rawInput: string): IFlag[] {
-        const splittedRawFlags = rawInput.split(this._flagDelimiter);
-        splittedRawFlags.shift();   //  remove the command
+        let splittedRawFlags = [];
+        if (this.isDirectValue(rawInput)) {
+            return this.extractDirectValueFromFlags(rawInput);
+        } else {
+            splittedRawFlags = rawInput.split(this._flagDelimiter);
+            splittedRawFlags.shift();   //  remove the command
+        }
 
         const flags: IFlag[] = [];
         splittedRawFlags.forEach(currentRawFlag => {
@@ -101,5 +108,34 @@ export class Parser implements IParser {
         });
 
         return flags;
+    }
+
+    private isDirectValue(rawInput: string): boolean {
+
+        const directValueRegex = new RegExp('--(\\w*=\\w*)'); //  matches "--anyname=value"
+        const complexValueRegex = new RegExp('--(\\w*:\\w*=\\w*)'); //  matches "--anyname:key=value"
+
+        if (!!directValueRegex.test(rawInput) && !!complexValueRegex.test(rawInput)) {
+            new NRGException().throw({
+                name: NRG_EXCEPTIONS.MixedCommandsValueTypesException.name,
+                message: NRG_EXCEPTIONS.MixedCommandsValueTypesException.message(),
+            });
+        }
+        if (!!directValueRegex.test(rawInput)) {
+            return true;
+        }
+
+        if (!!complexValueRegex.test(rawInput)) {
+            return false;
+        }
+
+        new NRGException().throw({
+            name: NRG_EXCEPTIONS.InvalidValueException.name,
+            message: NRG_EXCEPTIONS.InvalidValueException.message()
+        });
+    }
+
+    private extractDirectValueFromFlags(rawInput: string): IFlag[] {
+        return;
     }
 }

@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import * as chalk from 'chalk';
 import { injectable, inject } from 'inversify';
 
 import { IFlag } from '../interfaces/plain/flag.interface';
@@ -83,7 +84,14 @@ export class HelpManager implements IHelpManager {
             .getFlags() || [];
 
         flags.forEach(flag => {
-            kvSet.set.push({ k: flag.name, v: flag.description })
+            let desc = `\n${chalk.gray(flag.description)}\n`;
+            flag.options.forEach(opt => {
+                desc += `\n\tName: ${chalk.blue(opt.name)}\n`;
+                desc += `\tType: ${chalk.magenta(opt.value)}\n`;
+                desc += `\tUsage: ${chalk.cyan('--' + flag.name + ':' + opt.name + '=value')}\n`;
+            });
+
+            kvSet.set.push({ k: flag.name, v: desc });
         });
 
         console.log();

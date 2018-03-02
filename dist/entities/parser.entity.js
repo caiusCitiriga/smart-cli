@@ -10,31 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-var inversify_1 = require("inversify");
-var command_entity_1 = require("./command.entity");
-var exceptions_conts_1 = require("../consts/exceptions.conts");
-var nrg_exception_entity_1 = require("./nrg-exception.entity");
-var Parser = (function () {
-    function Parser() {
+const inversify_1 = require("inversify");
+const command_entity_1 = require("./command.entity");
+const exceptions_conts_1 = require("../consts/exceptions.conts");
+const nrg_exception_entity_1 = require("./nrg-exception.entity");
+let Parser = class Parser {
+    constructor() {
         //  Sugar
         this._flagDelimiter = '--';
         this._flagOptionsDelimiter = ':';
         this._flagOptionValueDelimiter = '=';
+        this._flagDirectValueDelimiter = '=';
         //  Configurations
         this._availableCommands = [];
     }
-    Parser.prototype.addCommand = function (cmdOpts) {
-        var cmd = new command_entity_1.Command();
+    addCommand(cmdOpts) {
+        const cmd = new command_entity_1.Command();
         cmd.setName(cmdOpts.name);
         cmd.setFlags(cmdOpts.flags);
         cmd.setAction(cmdOpts.action);
         cmd.setDescription(cmdOpts.description);
         this._availableCommands.push(cmd);
-    };
-    Parser.prototype.getCommand = function (opts) {
+    }
+    getCommand(opts) {
         if (opts.single) {
             return {
-                cmd: this._availableCommands.find(function (cmd) { return cmd.getName() === opts.cmdName; }) || null,
+                cmd: this._availableCommands.find(cmd => cmd.getName() === opts.cmdName) || null,
                 commands: null
             };
         }
@@ -42,11 +43,11 @@ var Parser = (function () {
             cmd: null,
             commands: this._availableCommands || []
         };
-    };
-    Parser.prototype.parse = function (rawInput) {
-        var flags = this.extractFlags(rawInput);
-        var commandName = this.extractCommandName(rawInput);
-        var matchingCommand = this._availableCommands.find(function (c) { return c.getName() === commandName; });
+    }
+    parse(rawInput) {
+        const flags = this.extractFlags(rawInput);
+        const commandName = this.extractCommandName(rawInput);
+        const matchingCommand = this._availableCommands.find(c => c.getName() === commandName);
         if (!matchingCommand) {
             new nrg_exception_entity_1.NRGException().throw({
                 name: exceptions_conts_1.NRG_EXCEPTIONS.NoMatchingCommandException.name,
@@ -55,26 +56,31 @@ var Parser = (function () {
         }
         matchingCommand.setFlags(flags);
         return matchingCommand;
-    };
-    Parser.prototype.extractCommandName = function (rawInput) {
+    }
+    extractCommandName(rawInput) {
         return rawInput.split(this._flagDelimiter)[0].trim();
-    };
-    Parser.prototype.extractFlags = function (rawInput) {
-        var _this = this;
-        var splittedRawFlags = rawInput.split(this._flagDelimiter);
-        splittedRawFlags.shift(); //  remove the command
-        var flags = [];
-        splittedRawFlags.forEach(function (currentRawFlag) {
-            var splittedRawOptions = currentRawFlag.split(_this._flagOptionsDelimiter);
+    }
+    extractFlags(rawInput) {
+        let splittedRawFlags = [];
+        if (this.isDirectValue(rawInput)) {
+            return this.extractDirectValueFromFlags(rawInput);
+        }
+        else {
+            splittedRawFlags = rawInput.split(this._flagDelimiter);
+            splittedRawFlags.shift(); //  remove the command
+        }
+        const flags = [];
+        splittedRawFlags.forEach(currentRawFlag => {
+            const splittedRawOptions = currentRawFlag.split(this._flagOptionsDelimiter);
             //  Extract the flag from the string
-            var parsedFlag = splittedRawOptions[0].trim();
+            const parsedFlag = splittedRawOptions[0].trim();
             //  Throw it from the array
             splittedRawOptions.shift();
-            var opts = [];
+            const opts = [];
             //  Loop the remaining options (from now on there will be only options)
-            splittedRawOptions.forEach(function (opt) {
-                var name = opt.split(_this._flagOptionValueDelimiter)[0];
-                var value = opt.split(_this._flagOptionValueDelimiter)[1];
+            splittedRawOptions.forEach(opt => {
+                let name = opt.split(this._flagOptionValueDelimiter)[0];
+                let value = opt.split(this._flagOptionValueDelimiter)[1];
                 name = name ? name.trim() : null;
                 value = value ? value.trim() : null;
                 opts.push({ name: name, value: value });
@@ -82,12 +88,34 @@ var Parser = (function () {
             flags.push({ name: parsedFlag, options: opts });
         });
         return flags;
-    };
-    Parser = __decorate([
-        inversify_1.injectable(),
-        __metadata("design:paramtypes", [])
-    ], Parser);
-    return Parser;
-}());
+    }
+    isDirectValue(rawInput) {
+        const directValueRegex = new RegExp('--(\\w*=\\w*)'); //  matches "--anyname=value"
+        const complexValueRegex = new RegExp('--(\\w*:\\w*=\\w*)'); //  matches "--anyname:key=value"
+        if (!!directValueRegex.test(rawInput) && !!complexValueRegex.test(rawInput)) {
+            new nrg_exception_entity_1.NRGException().throw({
+                name: exceptions_conts_1.NRG_EXCEPTIONS.MixedCommandsValueTypesException.name,
+                message: exceptions_conts_1.NRG_EXCEPTIONS.MixedCommandsValueTypesException.message(),
+            });
+        }
+        if (!!directValueRegex.test(rawInput)) {
+            return true;
+        }
+        if (!!complexValueRegex.test(rawInput)) {
+            return false;
+        }
+        new nrg_exception_entity_1.NRGException().throw({
+            name: exceptions_conts_1.NRG_EXCEPTIONS.InvalidValueException.name,
+            message: exceptions_conts_1.NRG_EXCEPTIONS.InvalidValueException.message()
+        });
+    }
+    extractDirectValueFromFlags(rawInput) {
+        return;
+    }
+};
+Parser = __decorate([
+    inversify_1.injectable(),
+    __metadata("design:paramtypes", [])
+], Parser);
 exports.Parser = Parser;
 //# sourceMappingURL=parser.entity.js.map

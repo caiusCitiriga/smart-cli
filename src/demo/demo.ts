@@ -1,39 +1,14 @@
-import { SmartCLI } from "..";
+#! /usr/bin/env node
+import * as process from 'process';
 
-const cli = new SmartCLI();
-cli
+import { SmartCLI } from '../index';
+
+console.log(process.argv.filter((arg, idx) => idx >= 2).join(' ').toString());
+new SmartCLI()
     .addCommand({
-        name: 'cmd-1',
-        action: () => null,
         flags: [],
-        description: 'Command one description'
+        name: 'alert',
+        description: 'Logs an alert into the console',
+        action: () => console.log('Alert'),
     })
-    .addCommand({
-        name: 'cmd-2',
-        action: () => null,
-        flags: [],
-        description: 'Command two description'
-    })
-    .addCommand({
-        name: 'cmd-3',
-        action: () => null,
-        flags: [
-            {
-                name: 'flag-1',
-                description: 'Flag one description',
-                options: []
-            },
-            {
-                name: 'flag-2',
-                description: 'Flag two description',
-                options: []
-            },
-            {
-                name: 'flag-3',
-                description: 'Flag three description',
-                options: []
-            }
-        ],
-        description: 'Command three description'
-    })
-    .run('help');
+    .run(process.argv.filter((arg, idx) => idx >= 2).join(' ').toString());

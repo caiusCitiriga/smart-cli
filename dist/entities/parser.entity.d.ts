@@ -7,6 +7,7 @@ import { IGetCommandResult } from '../interfaces/results/get-command-result.inte
 export declare class Parser implements IParser {
     private _flagDelimiter;
     private _flagOptionsDelimiter;
+    private _flagDirectValueDelimiter;
     private _flagOptionValueDelimiter;
     private _availableCommands;
     constructor();
@@ -15,4 +16,6 @@ export declare class Parser implements IParser {
     parse(rawInput: string): ICommand;
     private extractCommandName(rawInput);
     private extractFlags(rawInput);
+    private isDirectValue(rawInput);
+    private extractDirectValueFromFlags(rawInput);
 }

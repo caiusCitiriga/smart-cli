@@ -11,7 +11,8 @@
             "program": "${workspaceFolder}/dist/demo/demo.js",
             "args": [
                 "help",
-                "--yolo"
+                "--cmd=20",
+                "--cmd:test=20",
             ]
         }
     ]

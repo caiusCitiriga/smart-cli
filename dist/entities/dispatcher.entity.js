@@ -7,18 +7,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-var inversify_1 = require("inversify");
-var Dispatcher = (function () {
-    function Dispatcher() {
-    }
-    Dispatcher.prototype.dispatch = function (cmd) {
+const inversify_1 = require("inversify");
+let Dispatcher = class Dispatcher {
+    dispatch(cmd) {
         cmd.run(cmd.getFlags());
         return cmd;
-    };
-    Dispatcher = __decorate([
-        inversify_1.injectable()
-    ], Dispatcher);
-    return Dispatcher;
-}());
+    }
+};
+Dispatcher = __decorate([
+    inversify_1.injectable()
+], Dispatcher);
 exports.Dispatcher = Dispatcher;
+/**
+ Argument of type '{ set: { k: string; }[]; }' is not assignable to parameter of type 'IKeyValuesOpts'.
+  Types of property 'set' are incompatible.
+    Type '{ k: string; }[]' is not assignable to type '{ k: string; v: string; }[]'.
+      Type '{ k: string; }' is not assignable to type '{ k: string; v: string; }'.
+        Property 'v' is missing in type '{ k: string; }'.
+ */ 
 //# sourceMappingURL=dispatcher.entity.js.map
