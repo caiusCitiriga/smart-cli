@@ -1,9 +1,11 @@
+import { NRG_EXCEPTIONS } from "../consts/exceptions.conts";
+
+import { Command } from "../entities/command.entity";
 import { HelpManager } from "../entities/help-manager.entity";
 import { NRGException } from "../entities/nrg-exception.entity";
-import { NRG_EXCEPTIONS } from "../consts/exceptions.conts";
+
 import { IFlag } from "../interfaces/plain/flag.interface";
 import { ICommand } from "../interfaces/plain/command.interface";
-import { Command } from "../entities/command.entity";
 
 describe('HelpManager', function () {
     it('Should throw if the commands are not passed before the help() call', () => {

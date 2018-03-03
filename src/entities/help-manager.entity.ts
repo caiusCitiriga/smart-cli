@@ -2,15 +2,17 @@ import 'reflect-metadata';
 import * as chalk from 'chalk';
 import { injectable, inject } from 'inversify';
 
+import { TYPES } from '../consts/types.const';
+import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
+
+import { NRGException } from './nrg-exception.entity';
+
 import { IFlag } from '../interfaces/plain/flag.interface';
+import { IOutput } from '../interfaces/plain/output.interface';
 import { ICommand } from '../interfaces/plain/command.interface';
 import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 import { IHelpManager } from '../interfaces/plain/help-manager.interface';
 import { IKeyValuesOpts } from '../interfaces/opts/key-values-opts.interface';
-import { IOutput } from '../interfaces/plain/output.interface';
-import { TYPES } from '../consts/types.const';
-import { NRGException } from './nrg-exception.entity';
-import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
 
 @injectable()
 export class HelpManager implements IHelpManager {

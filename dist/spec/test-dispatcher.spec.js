@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const dispatcher_entity_1 = require("../entities/dispatcher.entity");
 const command_entity_1 = require("../entities/command.entity");
+const dispatcher_entity_1 = require("../entities/dispatcher.entity");
 describe('Dispatcher', function () {
     it('Should run the action on the dispatched command', () => {
         //  Arrange

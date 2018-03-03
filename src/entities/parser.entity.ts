@@ -1,7 +1,10 @@
 import 'reflect-metadata';
 import { injectable } from 'inversify';
 
+import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
+
 import { Command } from './command.entity';
+import { NRGException } from './nrg-exception.entity';
 
 import { IParser } from '../interfaces/plain/parser.interface';
 import { ICommand } from '../interfaces/plain/command.interface';
@@ -9,8 +12,6 @@ import { IFlag, IOption } from '../interfaces/plain/flag.interface';
 import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 import { IGetCommandOpts } from '../interfaces/opts/get-command-opts.interface';
 import { IGetCommandResult } from '../interfaces/results/get-command-result.interface';
-import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
-import { NRGException } from './nrg-exception.entity';
 
 @injectable()
 export class Parser implements IParser {

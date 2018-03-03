@@ -1,12 +1,13 @@
 import { TYPES } from './consts/types.const';
 import { IoCContainer } from './inversify.config';
 
+import { Command } from './entities/command.entity';
+
 import { IParser } from './interfaces/plain/parser.interface';
 import { ICommand } from './interfaces/plain/command.interface';
 import { IDispatcher } from './interfaces/plain/dispatcher.interface';
 import { ICommandOpts } from './interfaces/opts/command-opts.interface';
 import { IHelpManager } from './interfaces/plain/help-manager.interface';
-import { Command } from './entities/command.entity';
 
 export class SmartCLI {
     private _parser: IParser;

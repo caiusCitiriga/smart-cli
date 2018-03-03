@@ -1,3 +1,5 @@
+import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
+
 import { IFlag } from '../interfaces/plain/flag.interface';
 import { IParser } from '../interfaces/plain/parser.interface';
 import { ICommand } from '../interfaces/plain/command.interface';
@@ -6,7 +8,6 @@ import { ICommandOpts } from '../interfaces/opts/command-opts.interface';
 import { Parser } from '../entities/parser.entity';
 import { Command } from '../entities/command.entity';
 import { NRGException } from '../entities/nrg-exception.entity';
-import { NRG_EXCEPTIONS } from '../consts/exceptions.conts';
 
 function getParserWithCommandConfig(cmds: ICommandOpts[]): IParser {
     const parser = new Parser();

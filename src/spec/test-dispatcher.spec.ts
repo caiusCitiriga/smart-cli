@@ -1,5 +1,5 @@
-import { Dispatcher } from "../entities/dispatcher.entity";
 import { Command } from "../entities/command.entity";
+import { Dispatcher } from "../entities/dispatcher.entity";
 
 describe('Dispatcher', function () {
     it('Should run the action on the dispatched command', () => {

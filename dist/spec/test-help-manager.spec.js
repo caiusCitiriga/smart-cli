@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const help_manager_entity_1 = require("../entities/help-manager.entity");
-const nrg_exception_entity_1 = require("../entities/nrg-exception.entity");
 const exceptions_conts_1 = require("../consts/exceptions.conts");
 const command_entity_1 = require("../entities/command.entity");
+const help_manager_entity_1 = require("../entities/help-manager.entity");
+const nrg_exception_entity_1 = require("../entities/nrg-exception.entity");
 describe('HelpManager', function () {
     it('Should throw if the commands are not passed before the help() call', () => {
         //  Arrange

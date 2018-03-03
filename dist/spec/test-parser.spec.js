@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const exceptions_conts_1 = require("../consts/exceptions.conts");
 const parser_entity_1 = require("../entities/parser.entity");
 const nrg_exception_entity_1 = require("../entities/nrg-exception.entity");
-const exceptions_conts_1 = require("../consts/exceptions.conts");
 function getParserWithCommandConfig(cmds) {
     const parser = new parser_entity_1.Parser();
     cmds.forEach(cmd => parser.addCommand(cmd));

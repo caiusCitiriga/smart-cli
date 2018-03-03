@@ -13,8 +13,8 @@ require("reflect-metadata");
 const chalk = require("chalk");
 const inversify_1 = require("inversify");
 const types_const_1 = require("../consts/types.const");
-const nrg_exception_entity_1 = require("./nrg-exception.entity");
 const exceptions_conts_1 = require("../consts/exceptions.conts");
+const nrg_exception_entity_1 = require("./nrg-exception.entity");
 let HelpManager = class HelpManager {
     constructor() {
         this._commands = [];

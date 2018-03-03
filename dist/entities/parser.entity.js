@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const inversify_1 = require("inversify");
-const command_entity_1 = require("./command.entity");
 const exceptions_conts_1 = require("../consts/exceptions.conts");
+const command_entity_1 = require("./command.entity");
 const nrg_exception_entity_1 = require("./nrg-exception.entity");
 let Parser = class Parser {
     constructor() {
