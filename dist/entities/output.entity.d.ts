@@ -31,7 +31,7 @@ export declare class Output implements IOutput {
      * @param {ITableStructure} table
      * @memberof Output
      */
-    printTable(table: ITableOpts): void;
+    printTableExperimental(table: ITableOpts): void;
     /**
      * Writes the heading top lines on the table string
      *

@@ -93,7 +93,7 @@ let Output = class Output {
      * @param {ITableStructure} table
      * @memberof Output
      */
-    printTable(table) {
+    printTableExperimental(table) {
         this.setLongestCellWidth(table);
         this.writeHeadingTopRow(table.heading);
         this.writeHeadingValues(table.heading);

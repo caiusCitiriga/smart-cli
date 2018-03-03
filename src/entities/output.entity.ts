@@ -107,7 +107,7 @@ export class Output implements IOutput {
      * @param {ITableStructure} table 
      * @memberof Output
      */
-    public printTable(table: ITableOpts) {
+    public printTableExperimental(table: ITableOpts) {
         this.setLongestCellWidth(table);
         this.writeHeadingTopRow(table.heading);
         this.writeHeadingValues(table.heading);
