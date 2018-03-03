@@ -3,14 +3,14 @@ import { IoCContainer } from './inversify.config';
 
 import { Command } from './entities/command.entity';
 
+import { IInput } from './interfaces/plain/input.interface';
+import { IOutput } from './interfaces/plain/output.interface';
 import { IParser } from './interfaces/plain/parser.interface';
 import { ICommand } from './interfaces/plain/command.interface';
 import { IDispatcher } from './interfaces/plain/dispatcher.interface';
 import { ICommandOpts } from './interfaces/opts/command-opts.interface';
 import { IHelpManager } from './interfaces/plain/help-manager.interface';
 import { IUserInterface } from './interfaces/plain/user-interface.interface';
-import { IInput } from './interfaces/plain/input.interface';
-import { IOutput } from './interfaces/plain/output.interface';
 
 export class SmartCLI {
     private _parser: IParser;
