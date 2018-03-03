@@ -40,16 +40,11 @@ export class SmartCLI {
     }
 
     public run(rawUserInput: string): ICommand {
-        this.UI.input.askUserInput({
-            question: 'Your mum sucks cocks right?',
-            callback: (answer) => console.log('Of course it does! ' + answer)
-        })
-        return;
-        // this._commands.forEach(cmd => this._parser.addCommand(cmd));
+        this._commands.forEach(cmd => this._parser.addCommand(cmd));
 
-        // this._helpManager.setCommands(this._parser.getCommand({ single: false }).commands);
-        // this._parser.addCommand(this._helpManager.getHelpCommandOpts());
+        this._helpManager.setCommands(this._parser.getCommand({ single: false }).commands);
+        this._parser.addCommand(this._helpManager.getHelpCommandOpts());
 
-        // return this._dispatcher.dispatch(this._parser.parse(rawUserInput));
+        return this._dispatcher.dispatch(this._parser.parse(rawUserInput));
     }
 }
