@@ -6,6 +6,7 @@
 * [Chalk](https://github.com/chalk/chalk) - Terminal string styling done right
 * [Inversify](https://github.com/inversify/InversifyJS/) - A powerful and lightweight IoC container
 * [TypeScript](https://github.com/Microsoft/TypeScript) - TypeScript is a superset of JavaScript that compiles to clean JavaScript output.
+* **Love and passion. For coding, and beautiful code**
 
 ## Versioning
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/caiuscitiriga/smart-cli/tags). 

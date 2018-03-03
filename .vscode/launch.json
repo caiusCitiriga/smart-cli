@@ -10,8 +10,8 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/dist/demo/demo.js",
             "args": [
-                "echo",
-                "--m=My test message"
+                "help",
+                "--boxed-title"
             ]
         }
     ]

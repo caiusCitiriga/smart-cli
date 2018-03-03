@@ -72,6 +72,7 @@ let HelpManager = class HelpManager {
             .getFlags() || [];
         flags.forEach(flag => {
             let desc = `\n${chalk.gray(flag.description)}\n`;
+            desc += flag.options.length ? '\nAvailable options:\n' : '';
             flag.options.forEach(opt => {
                 desc += `\n\tName: ${chalk.blue(opt.name)}\n`;
                 desc += `\tType: ${chalk.magenta(opt.value)}\n`;
