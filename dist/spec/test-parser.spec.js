@@ -96,7 +96,7 @@ describe('Parser', function () {
         expect(flags[0].options[0].name).toEqual('options1');
         expect(flags[0].options[1].name).toEqual('options2');
     });
-    it('Should return the value into the options, with the name as the flag and the value passed by the user by "="', () => {
+    it('Should return the value into the options if the flag uses "direct-value" mode', () => {
         //  Arrange
         const cmds = [
             getCommand({
