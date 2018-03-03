@@ -102,16 +102,23 @@ let Parser = class Parser {
         if (!!directValueRegex.test(rawInput)) {
             return true;
         }
-        if (!!complexValueRegex.test(rawInput)) {
-            return false;
-        }
-        new nrg_exception_entity_1.NRGException().throw({
-            name: exceptions_conts_1.NRG_EXCEPTIONS.InvalidValueException.name,
-            message: exceptions_conts_1.NRG_EXCEPTIONS.InvalidValueException.message()
-        });
+        return false;
     }
     extractDirectValueFromFlags(rawInput) {
-        throw new Error('Not implemented');
+        const flags = [];
+        const splittedRawInput = rawInput.split(this._flagDelimiter);
+        splittedRawInput.shift();
+        splittedRawInput.forEach(stringyFlag => flags.push(this.getParsedFlagWithOptionsFromDirectValueFlag(stringyFlag)));
+        return flags;
+    }
+    getParsedFlagWithOptionsFromDirectValueFlag(rawStringyFlag) {
+        return {
+            name: rawStringyFlag.split(this._flagDirectValueDelimiter)[0],
+            options: [{
+                    name: rawStringyFlag.split(this._flagDirectValueDelimiter)[0],
+                    value: rawStringyFlag.split(this._flagDirectValueDelimiter)[1]
+                }]
+        };
     }
 };
 Parser = __decorate([

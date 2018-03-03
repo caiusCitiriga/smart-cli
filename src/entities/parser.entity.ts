@@ -126,17 +126,25 @@ export class Parser implements IParser {
             return true;
         }
 
-        if (!!complexValueRegex.test(rawInput)) {
-            return false;
-        }
-
-        new NRGException().throw({
-            name: NRG_EXCEPTIONS.InvalidValueException.name,
-            message: NRG_EXCEPTIONS.InvalidValueException.message()
-        });
+        return false;
     }
 
     private extractDirectValueFromFlags(rawInput: string): IFlag[] {
-        throw new Error('Not implemented');
+        const flags = [];
+        const splittedRawInput = rawInput.split(this._flagDelimiter);
+        splittedRawInput.shift();
+        splittedRawInput.forEach(stringyFlag => flags.push(this.getParsedFlagWithOptionsFromDirectValueFlag(stringyFlag)));
+
+        return flags;
+    }
+
+    private getParsedFlagWithOptionsFromDirectValueFlag(rawStringyFlag: string): IFlag {
+        return {
+            name: rawStringyFlag.split(this._flagDirectValueDelimiter)[0],
+            options: [{
+                name: rawStringyFlag.split(this._flagDirectValueDelimiter)[0],
+                value: rawStringyFlag.split(this._flagDirectValueDelimiter)[1]
+            }]
+        };
     }
 }

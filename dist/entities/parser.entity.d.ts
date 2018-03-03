@@ -18,4 +18,5 @@ export declare class Parser implements IParser {
     private extractFlags(rawInput);
     private isDirectValue(rawInput);
     private extractDirectValueFromFlags(rawInput);
+    private getParsedFlagWithOptionsFromDirectValueFlag(rawStringyFlag);
 }

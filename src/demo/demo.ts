@@ -11,4 +11,10 @@ new SmartCLI()
         description: 'Logs an alert into the console',
         action: () => console.log('Alert'),
     })
+    .addCommand({
+        name: 'echo',
+        action: () => null,
+        description: 'Test command',
+        flags: [{ name: 'm', options: null }]
+    })
     .run(process.argv.filter((arg, idx) => idx >= 2).join(' ').toString());
