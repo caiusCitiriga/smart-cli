@@ -142,7 +142,7 @@ interface IOption {
     value: string;
 }
 ```
-If you need the user to pass more informations along with a flag, or just want to provide a handy shortcut for multiple flags, you can laverage the flag options property. 
+If you need the user to pass more informations along with a flag, or just want to provide a handy shortcut for multiple flags, you can leverage the flag options property. 
 
 This allows the **Parser** to extract more than one value from a single flag. These values will be then pushed inside the **options** array on the **Flag** that you recieve in the callback. In this way you can use that information.
 
@@ -240,7 +240,7 @@ interface IInput {
 }
 ```
 
-This method takes a **IUserInputOpts** param, prompts the user a question, and then it registers the input provided by the user as answer. It will then pass the answer to the callback in order to be executed whenever the user will press **ENTER**
+This method takes a **IUserInputOpts** param. It prompts the user with a question, and then it registers the input provided by the user as an answer. It will then pass the answer to the callback which will be executed whenever the user will press **ENTER**
 
 Usage example:
 ```typescript
@@ -261,6 +261,64 @@ cli
 })
 ```
 
+## Help Manager
+SmartCLI also features a built-in **HelpManager**. 
+
+You won't need to worry about creating a help command that will describe the usage of each command. SmartCLI already does this for you. 
+
+That's why you have to provide descriptions for ***commands*** and ***flags***. 
+
+Also, when you want to create a **complex-value** flag that will accept several options, you define these options when adding the command to the CLI. 
+
+Providing the **name** and the value-type that you expect to recieve as a string, on the **value** property.
+
+The accepted values are:
+
+* string
+* number
+* boolean
+
+In this way, when the **HelpManager** will encounter a command with flags and options provided, it will automatically print information about those options. The ***name***, the ***value type*** and a usage example.
+
+Here's a HelpManager "compliant" command configuration example:
+```typescript
+cli
+.addCommand({
+    //  How to run: complex-flag --flag:value1=Yolo:value2=Molo'
+    name: 'complex-flag',
+    flags: [
+        {
+            name: 'flag',
+            description: '[Options flag values] A flag with options to demonstrate how to pass additional precise info to the callback, from the user. With a clean syntax',
+            options: [
+                {
+                    name: 'value1',
+                    value: 'string' //  typechecks are not yet implemented
+                },
+                {
+                    name: 'value2',
+                    value: 'string' //  typechecks are not yet implemented
+                }
+            ]
+        }
+    ],
+    description: 'Prints the resulting values in a kvp list',
+    action: (flags: IFlag[]) => {
+        const kvp: IKeyValuesOpts = {
+            set: []
+        };
+
+        flags[0].options.forEach(opt => kvp.set.push({ k: opt.name, v: opt.value }));
+        cli.UI.out.printKeyValues(kvp);
+    }
+})
+```
+
+## Thanks for using it
+As always, thanks for finding this useful. If you really like this project, please consider to star it. 
+
+If you found a bug, or you'd like to add a new feature, please feel free to open a new Issue, or a Pull Request.
+
 ---
 ### Built With
 * [Chalk](https://github.com/chalk/chalk) - Terminal string styling done right
@@ -274,6 +332,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ### Authors
 * [**Caius Citiriga**](https://github.com/caiuscitiriga)
 
+### Testing
+The code is tested with Jasmine on its core parts, and all the possible break points are covered. So each release won't break any existing feature from now.
 
 ### License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
