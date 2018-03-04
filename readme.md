@@ -7,7 +7,7 @@ SmartCLI is a NodeJS framework for building flexible and powerful console applic
 SmartCLI can be used just for its **UI** library, or you can leverage its **Parser** and **Dispatcher** to create your application. Built on **commands** and **flags**.
 
 #### Demo:
-[Quick demo of all the core features](#): copy and paste this file and have a working demo.
+[Quick demo of all the core features](#): copy and paste this file to have a working demo.
 
 
 ## Getting started
