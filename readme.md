@@ -278,6 +278,8 @@ The accepted values are:
 * number
 * boolean
 
+***Note:*** at the moment the **Parser** ignores these types, but in the future releases the type-check will be extended to the **Parser** too.
+
 In this way, when the **HelpManager** will encounter a command with flags and options provided, it will automatically print information about those options. The ***name***, the ***value type*** and a usage example.
 
 Here's a HelpManager "compliant" command configuration example:
@@ -313,6 +315,11 @@ cli
     }
 })
 ```
+
+If you want to give it a try, run the `help` command at any moment. 
+You will see a **General help** screen, listing all the commands you've provided with the CLI, and the description for each command.
+
+If you try to run the `help` command followed by a flag with the name of the command you want details about, you will see a screen printing the description about that command, a list of each flag (if any), and for each flag, a list of each option (name, value type, usage) if any.
 
 ## Thanks for using it
 As always, thanks for finding this useful. If you really like this project, please consider to star it. 
