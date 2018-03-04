@@ -26,7 +26,7 @@ SmartCLI can be used just for its **UI** library, or you can leverage its **Pars
 
 ```typescript
 #! /usr/bin/env node
-import {SmartCLI} from 'smart-cli'
+import {SmartCLI} from 'smart-cli/dist'
 
 const cli = new SmartCLI();
 ```
@@ -36,7 +36,7 @@ Ideally we would use the data passed by the user from the `process.argv` array, 
 ```typescript
 #! /usr/bin/env node
 import * as process from 'process';
-import {SmartCLI} from 'smart-cli'
+import {SmartCLI} from 'smart-cli/dist'
 
 const cli = new SmartCLI();
 
@@ -319,7 +319,9 @@ cli
 If you want to give it a try, run the `help` command at any moment. 
 You will see a **General help** screen, listing all the commands you've provided with the CLI, and the description for each command.
 
-If you try to run the `help` command followed by a flag with the name of the command you want details about, you will see a screen printing the description about that command, a list of each flag (if any), and for each flag, a list of each option (name, value type, usage) if any.
+If you try to run the `help` command followed by a flag with the name of the command you want details about, you will see a screen printing the description about that command.
+
+A list of each flag (if any), and for each flag, a list of each option (name, value type and usage) if any.
 
 ## Thanks for using it
 As always, thanks for finding this useful. If you really like this project, please consider to star it. 
