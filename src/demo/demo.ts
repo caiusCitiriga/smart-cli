@@ -3,8 +3,8 @@ import * as process from 'process';
 
 import { SmartCLI } from '../index';
 import { IFlag } from '../interfaces/plain/flag.interface';
-import { IKeyValuesOpts } from '../interfaces/opts/key-values-opts.interface';
 import { ITableOpts } from '../interfaces/opts/table-opts.interface';
+import { IKeyValuesOpts } from '../interfaces/opts/key-values-opts.interface';
 
 const cli = new SmartCLI();
 cli
@@ -185,6 +185,21 @@ cli
 
             flags[0].options.forEach(opt => kvp.set.push({ k: opt.name, v: opt.value }));
             cli.UI.out.printKeyValues(kvp);
+        }
+    })
+    .addCommand({
+        //  How to run: prompt'
+        name: 'prompt',
+        flags: [],
+        description: 'Propmts the user with a question',
+        action: (flags: IFlag[]) => {
+            cli.UI.input.askUserInput({
+                question: 'How are you?',
+                surroundWithNewLines: true,
+                callback: (answer) => {
+                    console.log(`Answer was: ${answer}`);
+                }
+            });
         }
     })
     .run(process.argv.filter((arg, idx) => idx >= 2).join(' ').toString());

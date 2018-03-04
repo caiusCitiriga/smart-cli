@@ -184,5 +184,20 @@ cli
         cli.UI.out.printKeyValues(kvp);
     }
 })
+    .addCommand({
+    //  How to run: prompt'
+    name: 'prompt',
+    flags: [],
+    description: 'Propmts the user with a question',
+    action: (flags) => {
+        cli.UI.input.askUserInput({
+            question: 'How are you?',
+            surroundWithNewLines: true,
+            callback: (answer) => {
+                console.log(`Answer was: ${answer}`);
+            }
+        });
+    }
+})
     .run(process.argv.filter((arg, idx) => idx >= 2).join(' ').toString());
 //# sourceMappingURL=demo.js.map
