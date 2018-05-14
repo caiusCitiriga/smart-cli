@@ -143,7 +143,7 @@ export class Output implements IOutput {
      * @memberof Output
      */
     public printTableExperimental(table: ITableOpts, noColor?: boolean) {
-        this.setLongestCellWidth(table, noColor);
+        this.setLongestCellWidth(table);
         this.writeHeadingTopRow(table.heading, noColor);
         this.writeHeadingValues(table.heading, noColor);
         this.writeHeadingFooter(table.heading, noColor);
