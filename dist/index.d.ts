@@ -6,6 +6,12 @@ export declare class SmartCLI {
     private _dispatcher;
     private _helpManager;
     private _commands;
+    /**
+     * [DEPRECATED] Don't use this anymore. It will be removed with next releases. Use UILibrary const instead.
+     * @deprecated
+     * @type {IUserInterface}
+     * @memberof SmartCLI
+     */
     UI: IUserInterface;
     constructor();
     addCommand(cmd: ICommandOpts): SmartCLI;

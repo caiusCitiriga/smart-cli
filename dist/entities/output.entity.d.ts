@@ -18,20 +18,20 @@ export declare class Output implements IOutput {
      */
     private table;
     printMessage(text: string): void;
-    printWarning(text: string): void;
-    printError(text: string): void;
-    printInfo(text: string): void;
-    printTitle(text: string): void;
-    printSubtitle(text: string): void;
-    printBoxTitle(text: string): void;
-    printKeyValues(opts: IKeyValuesOpts): void;
+    printWarning(text: string, noColor?: boolean): void;
+    printError(text: string, noColor?: boolean): void;
+    printInfo(text: string, noColor?: boolean): void;
+    printTitle(text: string, noColor?: boolean): void;
+    printSubtitle(text: string, noColor?: boolean): void;
+    printBoxTitle(text: string, noColor?: boolean): void;
+    printKeyValues(opts: IKeyValuesOpts, noColor?: boolean): void;
     /**
      * Prints the data passed in as tabular data.
      *
      * @param {ITableStructure} table
      * @memberof Output
      */
-    printTableExperimental(table: ITableOpts): void;
+    printTableExperimental(table: ITableOpts, noColor?: boolean): void;
     /**
      * Writes the heading top lines on the table string
      *
@@ -39,7 +39,7 @@ export declare class Output implements IOutput {
      * @param {string[]} heading
      * @memberof Output
      */
-    private writeHeadingTopRow(heading);
+    private writeHeadingTopRow(heading, noColor?);
     /**
      * Writes the heading values on the table string
      *
@@ -47,7 +47,7 @@ export declare class Output implements IOutput {
      * @param {string[]} heading
      * @memberof Output
      */
-    private writeHeadingValues(heading);
+    private writeHeadingValues(heading, noColor?);
     /**
      * Writes the heading bottom lines on the table string
      *
@@ -55,7 +55,7 @@ export declare class Output implements IOutput {
      * @param {string[]} heading
      * @memberof Output
      */
-    private writeHeadingFooter(heading);
+    private writeHeadingFooter(heading, noColor?);
     /**
      * Writes the values contained into the given rows, one set at the time on the table string
      *
@@ -63,7 +63,7 @@ export declare class Output implements IOutput {
      * @param {Array<string[]>} rows
      * @memberof Output
      */
-    private writeRows(rows);
+    private writeRows(rows, noColor?);
     /**
      * Sets the number of the longest heading or row value
      *

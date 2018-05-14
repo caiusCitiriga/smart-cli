@@ -31,27 +31,52 @@ export class Output implements IOutput {
         console.log(text);
     }
 
-    public printWarning(text: string) {
+    public printWarning(text: string, noColor?: boolean) {
+        if (noColor) {
+            console.log(`WARN: ${text}`);
+            return;
+        }
+
         console.log(Chalk.bold.yellow(`WARN: ${text}`));
     }
 
-    public printError(text: string) {
+    public printError(text: string, noColor?: boolean) {
+        if (noColor) {
+            console.log(`ERROR: ${text}`);
+            return;
+        }
+
         console.log(Chalk.bold.red(`ERROR: ${text}`));
     }
 
-    public printInfo(text: string) {
+    public printInfo(text: string, noColor?: boolean) {
+        if (noColor) {
+            console.log(`INFO: ${text}`);
+            return;
+        }
+
         console.log(Chalk.cyan(`INFO: ${text}`));
     }
 
-    public printTitle(text: string) {
+    public printTitle(text: string, noColor?: boolean) {
+        if (noColor) {
+            console.log(text.toUpperCase());
+            return;
+        }
+
         console.log(Chalk.bold.magenta(text.toUpperCase()));
     }
 
-    public printSubtitle(text: string) {
+    public printSubtitle(text: string, noColor?: boolean) {
+        if (noColor) {
+            console.log(' ' + text);
+            return;
+        }
+
         console.log(Chalk.grey(' ' + text));
     }
 
-    public printBoxTitle(text: string) {
+    public printBoxTitle(text: string, noColor?: boolean) {
         let title = '';
         for (let i = 0; i <= text.length + 3; i++) {
             if (i === 0) {
@@ -82,10 +107,15 @@ export class Output implements IOutput {
                 title += TableDelimiters.bottomRight;
             }
         }
+
+        if (noColor) {
+            console.log(title.toUpperCase());
+            return;
+        }
         console.log(Chalk.magenta(title.toUpperCase()));
     }
 
-    public printKeyValues(opts: IKeyValuesOpts) {
+    public printKeyValues(opts: IKeyValuesOpts, noColor?: boolean) {
         if (!opts.set.length) { return; }
         let longestKeyLen = opts.set[0].k.length;
         opts.set.forEach(s => longestKeyLen = s.k.length > longestKeyLen ? s.k.length : longestKeyLen);
@@ -95,6 +125,11 @@ export class Output implements IOutput {
             let spaces = opts.spacerChar && opts.spacerChar.length ? opts.spacerChar : ' ';
             for (let i = 0; i < (longestKeyLen - pair.k.length); i++) {
                 spaces += opts.spacerChar;
+            }
+
+            if (noColor) {
+                console.log(`- ${pair.k}: ${spaces + pair.v}`);
+                return;
             }
 
             console.log(`- ${Chalk.yellow(pair.k)}: ${spaces + pair.v}`);
@@ -107,11 +142,11 @@ export class Output implements IOutput {
      * @param {ITableStructure} table 
      * @memberof Output
      */
-    public printTableExperimental(table: ITableOpts) {
+    public printTableExperimental(table: ITableOpts, noColor?: boolean) {
         this.setLongestCellWidth(table);
-        this.writeHeadingTopRow(table.heading);
-        this.writeHeadingValues(table.heading);
-        this.writeHeadingFooter(table.heading);
+        this.writeHeadingTopRow(table.heading, noColor);
+        this.writeHeadingValues(table.heading, noColor);
+        this.writeHeadingFooter(table.heading, noColor);
         this.writeRows(table.rows);
 
         console.log(this.table);
@@ -124,22 +159,22 @@ export class Output implements IOutput {
      * @param {string[]} heading 
      * @memberof Output
      */
-    private writeHeadingTopRow(heading: string[]) {
+    private writeHeadingTopRow(heading: string[], noColor?: boolean) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
-                this.table += Chalk.gray(TableDelimiters.topLeft);
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.top) }
-                this.table += Chalk.gray(TableDelimiters.topMid);
+                this.table += noColor ? TableDelimiters.topLeft : Chalk.gray(TableDelimiters.topLeft);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.top : Chalk.gray(TableDelimiters.top) }
+                this.table += noColor ? TableDelimiters.topMid : Chalk.gray(TableDelimiters.topMid);
             }
 
             if (index === heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.top) }
-                this.table += Chalk.gray(TableDelimiters.topRight);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.top : Chalk.gray(TableDelimiters.top) }
+                this.table += noColor ? TableDelimiters.topRight : Chalk.gray(TableDelimiters.topRight);
             }
 
             if (index !== 0 && index !== heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.top) }
-                this.table += Chalk.gray(TableDelimiters.topMid);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.top : Chalk.gray(TableDelimiters.top) }
+                this.table += noColor ? TableDelimiters.topMid : Chalk.gray(TableDelimiters.topMid);
             }
         });
 
@@ -153,25 +188,25 @@ export class Output implements IOutput {
      * @param {string[]} heading 
      * @memberof Output
      */
-    private writeHeadingValues(heading: string[]) {
+    private writeHeadingValues(heading: string[], noColor?: boolean) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
-                this.table += Chalk.gray(TableDelimiters.left);
-                this.table += Chalk.bold.yellow(headingVal);
+                this.table += noColor ? TableDelimiters.left : Chalk.gray(TableDelimiters.left);
+                this.table += noColor ? headingVal : Chalk.bold.yellow(headingVal);
                 for (let i = 0; i <= this.longestCellWidth - headingVal.length; i++) { this.table += ' ' }
-                this.table += Chalk.gray(TableDelimiters.right);
+                this.table += noColor ? TableDelimiters.right : Chalk.gray(TableDelimiters.right);
             }
 
             if (index === heading.length - 1) {
-                this.table += Chalk.bold.yellow(headingVal);
+                this.table += noColor ? headingVal : Chalk.bold.yellow(headingVal);
                 for (let i = 0; i <= this.longestCellWidth - headingVal.length; i++) { this.table += ' ' }
-                this.table += Chalk.gray(TableDelimiters.right);
+                this.table += noColor ? TableDelimiters.right : Chalk.gray(TableDelimiters.right);
             }
 
             if (index !== 0 && index !== heading.length - 1) {
-                this.table += Chalk.bold.yellow(headingVal);
+                this.table += noColor ? heading : Chalk.bold.yellow(headingVal);
                 for (let i = 0; i <= this.longestCellWidth - headingVal.length; i++) { this.table += ' ' }
-                this.table += Chalk.gray(TableDelimiters.right);
+                this.table += noColor ? TableDelimiters.right : Chalk.gray(TableDelimiters.right);
             }
         });
 
@@ -185,22 +220,22 @@ export class Output implements IOutput {
      * @param {string[]} heading 
      * @memberof Output
      */
-    private writeHeadingFooter(heading: string[]) {
+    private writeHeadingFooter(heading: string[], noColor?: boolean) {
         heading.forEach((headingVal, index) => {
             if (index === 0) {
-                this.table += Chalk.gray(TableDelimiters.leftMid);
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.bottom) }
-                this.table += Chalk.gray(TableDelimiters.midMid);
+                this.table += noColor ? TableDelimiters.leftMid : Chalk.gray(TableDelimiters.leftMid);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.bottom : Chalk.gray(TableDelimiters.bottom) }
+                this.table += noColor ? TableDelimiters.midMid : Chalk.gray(TableDelimiters.midMid);
             }
 
             if (index === heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.bottom) }
-                this.table += Chalk.gray(TableDelimiters.rightMid);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.bottom : Chalk.gray(TableDelimiters.bottom) }
+                this.table += noColor ? TableDelimiters.rightMid : Chalk.gray(TableDelimiters.rightMid);
             }
 
             if (index !== 0 && index !== heading.length - 1) {
-                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.bottom) }
-                this.table += Chalk.gray(TableDelimiters.midMid);
+                for (let i = 0; i <= this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.bottom : Chalk.gray(TableDelimiters.bottom) }
+                this.table += noColor ? TableDelimiters.midMid : Chalk.gray(TableDelimiters.midMid);
             }
         });
 
@@ -214,48 +249,65 @@ export class Output implements IOutput {
      * @param {Array<string[]>} rows 
      * @memberof Output
      */
-    private writeRows(rows: Array<string[]>) {
+    private writeRows(rows: Array<string[]>, noColor?: boolean) {
         rows.forEach((valuesSet, setIndex) => {
             valuesSet.forEach((value, valueIndex) => {
                 if (valueIndex === 0) {
-                    this.table += Chalk.gray(TableDelimiters.left);
+                    this.table += noColor ? TableDelimiters.left : Chalk.gray(TableDelimiters.left);
                     this.table += value;
                     for (let i = 0; i <= this.longestCellWidth - value.length; i++) { this.table += ' ' }
-                    this.table += Chalk.gray(TableDelimiters.right);
+                    this.table += noColor ? TableDelimiters.right : Chalk.gray(TableDelimiters.right);
                 }
 
                 if (valueIndex === valuesSet.length - 1) {
                     this.table += value;
                     for (let i = 0; i <= this.longestCellWidth - value.length; i++) { this.table += ' ' }
-                    this.table += Chalk.gray(TableDelimiters.right);
+                    this.table += noColor ? TableDelimiters.right : Chalk.gray(TableDelimiters.right);
                 }
 
                 if (valueIndex !== 0 && valueIndex !== valuesSet.length - 1) {
                     this.table += value;
                     for (let i = 0; i <= this.longestCellWidth - value.length; i++) { this.table += ' ' }
-                    this.table += Chalk.gray(TableDelimiters.right);
+                    this.table += noColor ? TableDelimiters.right : Chalk.gray(TableDelimiters.right);
                 }
             });
             this.table += '\n';
             valuesSet.forEach((value, valueIndex) => {
                 if (valueIndex === 0) {
-                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomLeft) : Chalk.gray(TableDelimiters.leftMid);
-                    this.table += Chalk.gray(TableDelimiters.mid);
-                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
-                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
+                    if (noColor) {
+                        this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomLeft : TableDelimiters.leftMid;
+                        this.table += TableDelimiters.mid;
+
+                        for (let i = 0; i != this.longestCellWidth; i++) { this.table += TableDelimiters.mid }
+                        this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomMid : TableDelimiters.midMid;
+                    } else {
+                        this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomLeft) : Chalk.gray(TableDelimiters.leftMid);
+                        this.table += Chalk.gray(TableDelimiters.mid);
+
+                        for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
+                        this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
+                    }
 
                 }
 
                 if (valueIndex === valuesSet.length - 1) {
-                    this.table += Chalk.gray(TableDelimiters.mid);
-                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
-                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomRight) : Chalk.gray(TableDelimiters.rightMid);
+                    this.table += noColor ? TableDelimiters.mid : Chalk.gray(TableDelimiters.mid);
+                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.mid : Chalk.gray(TableDelimiters.mid) }
+                    if (noColor) {
+                        this.table += setIndex === rows.length - 1 ? TableDelimiters.bottomRight : TableDelimiters.rightMid;
+                    } else {
+                        this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomRight) : Chalk.gray(TableDelimiters.rightMid);
+                    }
                 }
 
                 if (valueIndex !== 0 && valueIndex !== valuesSet.length - 1) {
-                    this.table += Chalk.gray(TableDelimiters.mid);
-                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += Chalk.gray(TableDelimiters.mid) }
-                    this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
+                    this.table += noColor ? TableDelimiters.mid : Chalk.gray(TableDelimiters.mid);
+                    for (let i = 0; i != this.longestCellWidth; i++) { this.table += noColor ? TableDelimiters.mid : Chalk.gray(TableDelimiters.mid) }
+                    if (noColor) {
+                        this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
+                    } else {
+                        this.table += setIndex === rows.length - 1 ? Chalk.gray(TableDelimiters.bottomMid) : Chalk.gray(TableDelimiters.midMid);
+                    }
                 }
             });
             this.table += '\n';
