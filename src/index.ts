@@ -59,3 +59,5 @@ export class SmartCLI {
     }
 
 }
+
+module.exports = UILibrary;

@@ -2,7 +2,7 @@
 import * as process from 'process';
 
 //  Change this imports into: smart-cli/dist/
-import { SmartCLI } from '../index';
+import { SmartCLI, UILibrary } from '../index';
 //  Change this imports into: smart-cli/dist/interfaces/plain/flag.interface
 import { IFlag } from '../interfaces/plain/flag.interface';
 //  Change this imports into: smart-cli/dist/interfaces/opts/table-opts.interface

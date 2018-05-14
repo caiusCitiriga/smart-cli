@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const types_const_1 = require("./consts/types.const");
 const inversify_config_1 = require("./inversify.config");
-const UILibrary = {
+exports.UILibrary = {
     out: inversify_config_1.IoCContainer.get(types_const_1.TYPES.IOutput),
     input: inversify_config_1.IoCContainer.get(types_const_1.TYPES.IInput)
 };
@@ -14,7 +14,7 @@ class SmartCLI {
          * @type {IUserInterface}
          * @memberof SmartCLI
          */
-        this.UI = UILibrary;
+        this.UI = exports.UILibrary;
         this._commands = [];
         this._parser = inversify_config_1.IoCContainer.get(types_const_1.TYPES.IParser);
         this._dispatcher = inversify_config_1.IoCContainer.get(types_const_1.TYPES.IDispatcher);
@@ -36,4 +36,5 @@ class SmartCLI {
     }
 }
 exports.SmartCLI = SmartCLI;
+module.exports = exports.UILibrary;
 //# sourceMappingURL=index.js.map
