@@ -45,6 +45,12 @@ export class SmartCLI {
         this._helpManager.setCommands(this._parser.getCommand({ single: false }).commands);
         this._parser.addCommand(this._helpManager.getHelpCommandOpts());
 
+        if (!rawUserInput.length) {
+            this._helpManager.help(null);
+            return;
+        }
+
         return this._dispatcher.dispatch(this._parser.parse(rawUserInput));
     }
+
 }

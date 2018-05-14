@@ -1,1 +1,0 @@
-{"version":3,"file":"dispatcher.entity.js","sourceRoot":"","sources":["../../src/entities/dispatcher.entity.ts"],"names":[],"mappings":";;;;;;;;AAAA,4BAA0B;AAC1B,yCAAuC;AAMvC,IAAa,UAAU,GAAvB;IACW,QAAQ,CAAC,GAAa;QACzB,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,QAAQ,EAAE,CAAC,CAAC;QACxB,MAAM,CAAC,GAAG,CAAC;IACf,CAAC;CACJ,CAAA;AALY,UAAU;IADtB,sBAAU,EAAE;GACA,UAAU,CAKtB;AALY,gCAAU"}
