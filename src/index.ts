@@ -12,7 +12,7 @@ import { ICommandOpts } from './interfaces/opts/command-opts.interface';
 import { IHelpManager } from './interfaces/plain/help-manager.interface';
 import { IUserInterface } from './interfaces/plain/user-interface.interface';
 
-const UILibrary: IUserInterface = {
+export const UILibrary: IUserInterface = {
     out: IoCContainer.get<IOutput>(TYPES.IOutput),
     input: IoCContainer.get<IInput>(TYPES.IInput)
 };
