@@ -26,9 +26,9 @@ SmartCLI can be used just for its **UI** library, or you can leverage its **Pars
 
 ```typescript
 #! /usr/bin/env node
-import {SmartCLI} from 'smart-cli/dist'
+import * as SCLI from 'smart-cli/dist'
 
-const cli = new SmartCLI();
+const cli = new SCLI.SmartCLI();
 ```
 
 **Add a test command and run the program passing the arguments that the user provided with the call.
@@ -36,9 +36,9 @@ Ideally we would use the data passed by the user from the `process.argv` array, 
 ```typescript
 #! /usr/bin/env node
 import * as process from 'process';
-import {SmartCLI} from 'smart-cli/dist'
+import * as SCLI from 'smart-cli/dist'
 
-const cli = new SmartCLI();
+const cli = new SCLI.SmartCLI();
 
 cli
     .addCommand({

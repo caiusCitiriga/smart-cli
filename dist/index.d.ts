@@ -1,6 +1,7 @@
 import { ICommand } from './interfaces/plain/command.interface';
 import { ICommandOpts } from './interfaces/opts/command-opts.interface';
 import { IUserInterface } from './interfaces/plain/user-interface.interface';
+export declare const UILibrary: IUserInterface;
 export declare class SmartCLI {
     private _parser;
     private _dispatcher;
