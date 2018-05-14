@@ -1,6 +1,6 @@
 {
     "name": "smart-cli",
-    "version": "1.2.2",
+    "version": "2.0.0",
     "description": "A complete framework for creating amazing Console Applications in Node.js",
     "main": "dist/index.js",
     "scripts": {

@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const process = require("process");
 //  Change this imports into: smart-cli/dist/
-const index_1 = require("../index");
-const cli = new index_1.SmartCLI();
+const SCLI = require("../index");
+const cli = new SCLI.SmartCLI();
 cli
     .addCommand({
     //  How to run: title --m=Test title

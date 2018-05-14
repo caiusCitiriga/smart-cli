@@ -36,5 +36,8 @@ class SmartCLI {
     }
 }
 exports.SmartCLI = SmartCLI;
-module.exports = exports.UILibrary;
+module.exports = {
+    UILibrary: exports.UILibrary,
+    SmartCLI: SmartCLI
+};
 //# sourceMappingURL=index.js.map

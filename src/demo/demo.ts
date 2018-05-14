@@ -2,7 +2,7 @@
 import * as process from 'process';
 
 //  Change this imports into: smart-cli/dist/
-import { SmartCLI, UILibrary } from '../index';
+import * as SCLI from '../index';
 //  Change this imports into: smart-cli/dist/interfaces/plain/flag.interface
 import { IFlag } from '../interfaces/plain/flag.interface';
 //  Change this imports into: smart-cli/dist/interfaces/opts/table-opts.interface
@@ -10,7 +10,7 @@ import { ITableOpts } from '../interfaces/opts/table-opts.interface';
 //  Change this imports into: smart-cli/dist/interfaces/opts/key-values-opts.interface
 import { IKeyValuesOpts } from '../interfaces/opts/key-values-opts.interface';
 
-const cli = new SmartCLI();
+const cli = new SCLI.SmartCLI();
 cli
     .addCommand({
         //  How to run: title --m=Test title

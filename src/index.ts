@@ -60,4 +60,7 @@ export class SmartCLI {
 
 }
 
-module.exports = UILibrary;
+module.exports = {
+    UILibrary: UILibrary,
+    SmartCLI: SmartCLI
+};
